@@ -273,7 +273,7 @@ buttonSave.addEventListener('click',(event)=>{
 
     const newList = {listId,name,type,tasks:[]};
     lists.push(newList);
-    console.log(newList);
+    showAllLists();
 
     textArea.value="";
     if(selectedRadio)selectedRadio.checked = false;
@@ -297,15 +297,143 @@ isClicked=true;
 
 //DEALING WITH LISTS
 
-function showLists(){
-   console.log(lists);
-}
+//SHOW ALL LISTS
+function showAllLists(){
+    const divToShowLists = document.getElementById("divToShowLists");
+    divToShowLists.innerHTML = "";
+
+        const imageMap = {
+        "for Day": "https://www.emojiall.com/images/240/openmoji/16.0/1f7e3.png",
+        "for Year": "https://www.emojiall.com/images/240/openmoji/16.0/1f7e2.png",
+        "for Life": "https://www.emojiall.com/images/240/openmoji/16.0/1f535.png",
+        "default": "https://www.emojiall.com/images/240/openmoji/16.0/26aa.png"
+    };
+    
+   lists.forEach(list=>{
+    const divToShowSingleList = document.createElement("div");
+    divToShowSingleList.classList.add("divToShowSingleList");
+
+
+    const divToShowSingleListImage = document.createElement("img");
+    divToShowSingleListImage.src=imageMap[list.type] || imageMap.default;
+
+    const divToShowSingleListP = document.createElement('p');
+    divToShowSingleListP.textContent=list.name;
+
+    divToShowSingleList.appendChild(divToShowSingleListImage);
+    divToShowSingleList.appendChild(divToShowSingleListP)
+
+    divToShowLists.appendChild(divToShowSingleList);
+
+   });
+
+};
+
+document.addEventListener('DOMContentLoaded',()=>{
+    showAllLists();
+})
 
 function showList(id){
+
+    const divToShowListAndTaks=document.getElementById("listsAndTasks");
+    divToShowListAndTaks.innerHTML = "";
+
+
    const index = lists.findIndex((list)=>list.listId === id);
+
+
    if(index !== -1){
+    const divShowing=document.createElement('div');
+    const listName = document.createElement('h2');
+    listName.innerText = lists[index].name;
+
+    
+
+    const divCreateTask = document.createElement('div');
+    divCreateTask.classList.add("divCreateTask")
+     const listInput = document.createElement('input');
+    listInput.placeholder = "Type here your new task";
+    const buttonSaveTask = document.createElement('button');
+    buttonSaveTask.innerHTML="Save";
+
+
+    buttonSaveTask.addEventListener('click',()=>{
+
+      let lastId;
+      if(lists[index].tasks.length === 0){
+          lastId = 0;
+      }else{
+         lastId = lists[index].tasks[list.tasks.length-1].id;
+      }
+      const newTask = {id:lastId+1,task:listInput.value};
+      lists[index].tasks.push(newTask);
+
+    })
+
+
+
+    divShowing.appendChild(listName);
+
+    divCreateTask.appendChild(listInput);
+    divCreateTask.appendChild(buttonSaveTask);
+
+    
+    divToShowListAndTaks.appendChild(divShowing);
+    divToShowListAndTaks.appendChild(divCreateTask);
+
+
+    
+    let amount =0;
+    
+
+    lists[index].tasks.forEach(thisTask=>{
+     const divTask = document.createElement('div');
+    divTask.classList.add('divTask');
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+
+
+    const numberTaskP = document.createElement('p');
+    numberTaskP.innerText = amount + 1;
+    amount ++;
+
+
+    const theTaskP = document.createElement('p');
+    theTaskP.textContent=thisTask.task;
+
+
+    const buttonEditTask = document.createElement('button');
+    buttonEditTask.classList.add('buttonEditTask');
+    buttonEditTask.innerHTML="Edit";
+
+    //buttonEditTask.addEventListener('click', ()=>{
+
+
+      
+    //  })
+
+    //})
+
+    
+    const buttonDeleteTask = document.createElement('button');
+    buttonDeleteTask.classList.add('buttonDeleteTask');
+    buttonDeleteTask.innerHTML="Delete"
+
+    
+    divTask.appendChild(checkbox);
+    divTask.appendChild(numberTaskP);
+    divTask.appendChild(theTaskP);
+    divTask.appendChild(buttonEditTask);
+    divTask.appendChild(buttonDeleteTask);
+
+    divToShowListAndTaks.appendChild(divTask);
+
+    })
+
       console.log(lists[index])
    }
+
 }
 
 function editList(id,changes){
@@ -330,22 +458,7 @@ function removeList(id){
 //DEALING WITH TASKS
 //-----------------------------------------------------------------
 
-function addTask(id,task){
-   const list = lists.find((list)=>list.listId === id);
-   if(!list) return;
 
-      let lastId;
-      if(list.tasks.length === 0){
-          lastId = 0;
-      }else{
-         lastId = list.tasks[list.tasks.length-1].id;
-      }
-      const newTask = {id:lastId+1,task:task};
-      list.tasks.push(newTask);
-
-      console.log(list.tasks);
-      
-   }
 
    function editTask(id,idTask,task){
       const list = lists.find((list)=>list.listId === id);

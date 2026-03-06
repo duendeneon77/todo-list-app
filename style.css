@@ -210,9 +210,10 @@ nav button{
      gap: 2rem;
      width:auto;
      text-align: center;
+     align-items: center;
      color: rgb(43, 166, 164);
      font-size: 0.7rem;
-     justify-content: start;
+     
 }
 /* CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ---------------------- */
 
@@ -304,6 +305,43 @@ nav button{
 
 }
 /* CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ---------------------- */
+
+/* CONTAINER FOR SINGLE LIST DIV -----------------------------*/
+/* CONTAINER FOR SINGLE LIST DIV -----------------------------*/
+/* CONTAINER FOR SINGLE LIST DIV -----------------------------*/
+/* CONTAINER FOR SINGLE LIST DIV -----------------------------*/
+
+
+#divToShowLists{
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-bottom: 4rem;
+}
+.divToShowSingleList{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 8rem;
+    gap:0.5rem;
+
+}
+.divToShowSingleList img{
+    width:8rem;
+    height: 8rem;
+}
+
+.divToShowSingleList p{
+    overflow-wrap: break-word;
+    width: 8rem;
+    height:7.3rem;
+}
 
 footer{
    
