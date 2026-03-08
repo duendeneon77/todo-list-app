@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Capriola&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Capriola&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 
 * {
   margin: 0;
@@ -11,298 +11,272 @@
 .color4 { #59a68c };
 .color5 { #339999 };*/
 
-body{
-    font-family: "Capriola", sans-serif, Arial, Helvetica, sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(149, 181, 198);
-
+body {
+  font-family: "Capriola", sans-serif, Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(149, 181, 198);
 }
-header{
-    color: rgba(255, 255, 255, 0.973);
-    display: flex;
-    height: 4rem;
-    background-color: #33769d;
-    flex-direction: column;
-    align-items:center;
-    padding: 1rem;
-    
-    text-shadow: 2px 2px 4px rgba(28, 40, 93, 0.6);
-}
-nav{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    background-color: #33769d;
-    height: 3rem;
+header {
+  color: rgba(255, 255, 255, 0.973);
+  display: flex;
+  height: 4rem;
+  background-color: #33769d;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
 
+  text-shadow: 2px 2px 4px rgba(28, 40, 93, 0.6);
+}
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: #33769d;
+  height: 3rem;
 }
 
 /* BUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONS BUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONS */
- button{
-    padding: 0.5rem;
-    border: none;
-    border-radius: 2rem;
-    font-size: 1rem;
-    font-weight: 300;
-    font-family: "Capriola", sans-serif,Arial, Helvetica, sans-serif;
-    color: rgb(255, 255, 255);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-    
-   
-    
-
+button {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 2rem;
+  font-size: 1rem;
+  font-weight: 300;
+  font-family: "Capriola", sans-serif, Arial, Helvetica, sans-serif;
+  color: rgb(255, 255, 255);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
-nav button{
-    width: 5.7rem;
+nav button {
+  width: 5.7rem;
 }
-#button1{
-    background-color: rgb(241, 147, 119);
-     border: 1px,solid,rgb(208, 107, 107);
-     
-    text-shadow: 2px 2px 4px rgba(194, 32, 4, 0.6);
+#button1 {
+  background-color: rgb(241, 147, 119);
+  border: 1px, solid, rgb(208, 107, 107);
+
+  text-shadow: 2px 2px 4px rgba(194, 32, 4, 0.6);
 }
-#button2{
-    background-color: rgb(215, 227, 111);
-     border: 1px,solid,rgb(131, 204, 119);
-     
-    text-shadow: 2px 2px 4px rgba(48, 103, 3, 0.6);
+#button2 {
+  background-color: rgb(215, 227, 111);
+  border: 1px, solid, rgb(131, 204, 119);
+
+  text-shadow: 2px 2px 4px rgba(48, 103, 3, 0.6);
 }
-#buttonSignOut{
-    background-color: rgb(236, 122, 223);
-     border: 1px,solid,rgb(200, 104, 185);
-     
-    text-shadow: 2px 2px 4px rgba(147, 22, 88, 0.6);
+#buttonSignOut {
+  background-color: rgb(236, 122, 223);
+  border: 1px, solid, rgb(200, 104, 185);
+
+  text-shadow: 2px 2px 4px rgba(147, 22, 88, 0.6);
 }
-#buttonLogin{
-    background-color: rgb(107, 208, 164);
-     border: 1px,solid,rgba(77, 159, 113, 0.713);
-     
-    text-shadow: 2px 2px 4px rgba(13, 87, 86, 0.6);
-    
-    width: 100%;
-     border-radius: 0.3rem;
-    
+#buttonLogin {
+  background-color: rgb(107, 208, 164);
+  border: 1px, solid, rgba(77, 159, 113, 0.713);
+
+  text-shadow: 2px 2px 4px rgba(13, 87, 86, 0.6);
+
+  width: 100%;
+  border-radius: 0.3rem;
 }
-#buttonRegister, #buttonRegistrate{
-    background-color: rgb(238, 141, 141);
-     border: 1px,solid,rgba(240, 94, 81, 0.687);
-     
-    text-shadow: 2px 2px 4px rgba(223, 29, 74, 0.533);
-    width: 100%;
-    border-radius: 0.3rem;
+#buttonRegister,
+#buttonRegistrate {
+  background-color: rgb(238, 141, 141);
+  border: 1px, solid, rgba(240, 94, 81, 0.687);
+
+  text-shadow: 2px 2px 4px rgba(223, 29, 74, 0.533);
+  width: 100%;
+  border-radius: 0.3rem;
 }
 
-#buttonCreateList{
-    background-color: #eec72d;
-    
-    text-shadow: 2px 2px 4px rgba(186, 115, 14, 0.533);
-    border-radius: 0.3rem 1rem 1rem 0rem;
-    width: 12rem;
+#buttonCreateList {
+  background-color: #eec72d;
 
-    position: relative;
-    z-index: 1;
+  text-shadow: 2px 2px 4px rgba(186, 115, 14, 0.533);
+  border-radius: 0.3rem 1rem 1rem 0rem;
+  width: 12rem;
 
+  position: relative;
+  z-index: 1;
 }
 
-#buttonCreateList:hover{
-    background-color: #f2ef39;
-    
-    text-shadow: 2px 2px 4px rgba(177, 106, 7, 0.533);
+#buttonCreateList:hover {
+  background-color: #f2ef39;
 
+  text-shadow: 2px 2px 4px rgba(177, 106, 7, 0.533);
 }
-#buttonLogin:hover{
-    background-color: rgb(151, 231, 111);
-     border: 1px,solid,rgba(77, 159, 84, 0.713);
-     border-radius: 0.3rem;
-    
+#buttonLogin:hover {
+  background-color: rgb(151, 231, 111);
+  border: 1px, solid, rgba(77, 159, 84, 0.713);
+  border-radius: 0.3rem;
 }
-#buttonRegister:hover,#buttonRegistrate:hover{
-    background-color: rgb(249, 192, 117);
-     border: 1px,solid,rgba(227, 93, 81, 0.687);
-     
-     
+#buttonRegister:hover,
+#buttonRegistrate:hover {
+  background-color: rgb(249, 192, 117);
+  border: 1px, solid, rgba(227, 93, 81, 0.687);
 }
 
-
-#content{
-     flex:1;
-     display: flex;
-     flex-direction: column;
-      background-color: #eefcfc;
-      margin-bottom:0.2rem;
-      margin-top: 0.2rem;
-      align-items: center;
-      justify-content: center;
-     
-    
+#content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #eefcfc;
+  margin-bottom: 0.2rem;
+  margin-top: 0.2rem;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
 }
-#content form{
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    gap: 1rem;
-    padding: 3rem;
+#content form {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  gap: 1rem;
+  padding: 3rem;
 }
 
-#content form input{
-    padding: 0.5rem;
-    width: 16rem;
-    border: 1px,solid, rgba(239, 126, 89, 0.546);
-    font-family: "Capriola", sans-serif, Arial, Helvetica, sans-serif;
-    color: #164357;
-    text-align: center;
-
+#content form input {
+  padding: 0.5rem;
+  width: 16rem;
+  border: 1px, solid, rgba(239, 126, 89, 0.546);
+  font-family: "Capriola", sans-serif, Arial, Helvetica, sans-serif;
+  color: #164357;
+  text-align: center;
 }
-#content form input:focus{
-    outline: none;
-    border:2px, solid,#87e535;
-    
-
+#content form input:focus {
+  outline: none;
+  border: 2px, solid, #87e535;
 }
 
-#buttonContainer{
-    max-width: 16rem;
+#buttonContainer {
+  max-width: 16rem;
 }
 /* BUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONS BUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONS */
-
 
 #advices p {
-    display: flex;
-    align-items: center;    /* Centraliza o texto verticalmente */
-    justify-content: center; /* Centraliza o texto horizontalmente */
-    width: 16rem;
-    height: 4rem;
-    margin-top: 1rem;
-    font-size: 0.7rem;
-    text-align: center;
-    padding: 0;
+  display: flex;
+  align-items: center; /* Centraliza o texto verticalmente */
+  justify-content: center; /* Centraliza o texto horizontalmente */
+  width: 16rem;
+  height: 4rem;
+  margin-top: 1rem;
+  font-size: 0.7rem;
+  text-align: center;
+  padding: 0;
 }
 
-#advices p.success-color{
-    background-color: #d8f2c9;
-     border: 1px solid rgb(12, 149, 127);
-     color: #136b67;
+#advices p.success-color {
+  background-color: #d8f2c9;
+  border: 1px solid rgb(12, 149, 127);
+  color: #136b67;
 }
-#advices p.error-color{
-    background-color: #f3e2dc;
-     border: 1px solid rgb(234, 74, 46);
-     color: rgb(182, 61, 61);
+#advices p.error-color {
+  background-color: #f3e2dc;
+  border: 1px solid rgb(234, 74, 46);
+  color: rgb(182, 61, 61);
 }
 
-
-#buttonContainer p{
-    padding-top: 1.5rem;
-    padding-bottom: 0.5rem;
-    font-size: 0.7rem;
-    font-weight: 100;
-    text-align: center;
+#buttonContainer p {
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 100;
+  text-align: center;
 }
-#appDiv{
-    display: flex;
-    flex-direction: column;
-     flex: 1;
-     margin-top: 2rem;
-     gap: 2rem;
-     width:auto;
-     text-align: center;
-     align-items: center;
-     color: rgb(43, 166, 164);
-     font-size: 0.7rem;
-     
+#appDiv {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-top: 2rem;
+  gap: 2rem;
+  width: auto;
+  text-align: center;
+  align-items: center;
+  color: rgb(43, 166, 164);
+  font-size: 0.7rem;
 }
 /* CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ---------------------- */
 
-#creatingDiv{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    width: 100%;
+#creatingDiv {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: row;
+  width: 100%;
 }
-.divForCreation{
-    display: flex;
-    flex-direction: column;
-    width: 16rem;
-    height: 19rem;
-    background-color: #f9f9f9cb;
-    border: 1px solid rgb(24, 114, 117);
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    top: -8px;
-    z-index: 0;
-}
-
-.divForCreation button{
-    margin-top: 1rem;
-    background-color: rgb(36, 202, 188);
-    color: rgba(255, 255, 255, 0.89);
-    border-radius: 0.3rem;
-    font-size: 0.8rem;
-    padding: 0.2rem;
-    }
-
-    .divForCreation button:hover{
-    
-    background-color: rgb(36, 202, 138);
-    
-    }
-
-
-
-.divForCreation textarea{
-    font-size: 1.2rem;
-    border: 1px ;
-    width: 14rem;
-    font-family: "Capriola", sans-serif, Arial, Helvetica, sans-serif;
-    color: #2b8f9f;
-    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-}
-.divForCreation textarea::placeholder{
-    font-size: 1rem;
-    color:#5eaeae;
+.divForCreation {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 16rem;
+  height: 19rem;
+  background-color: #f9f9f9cb;
+  border: 1px solid rgb(24, 114, 117);
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: -8px;
+  z-index: 0;
 }
 
-
-.divForCreation textarea:focus{
-    outline: none;
-    border:2px, solid,#14a6bc;
-    
-
+.divForCreation button {
+  margin-top: 1rem;
+  background-color: rgb(36, 202, 188);
+  color: rgba(255, 255, 255, 0.89);
+  border-radius: 0.3rem;
+  font-size: 0.8rem;
+  padding: 0.2rem;
 }
 
+.divForCreation button:hover {
+  background-color: rgb(36, 202, 138);
+}
 
-#containerTextArea{
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    width: 16rem;
+.divForCreation textarea {
+  font-size: 1.2rem;
+  border: 1px;
+  width: 14rem;
+  font-family: "Capriola", sans-serif, Arial, Helvetica, sans-serif;
+  color: #2b8f9f;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+.divForCreation textarea::placeholder {
+  font-size: 1rem;
+  color: #5eaeae;
+}
+
+.divForCreation textarea:focus {
+  outline: none;
+  border: 2px, solid, #14a6bc;
+}
+
+#containerTextArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  width: 16rem;
 }
 
 .divCheckbox {
-    display: flex;
-    gap: 15px;        /* espaço entre os radios */
-    margin: 10px 0;   /* espaço acima e abaixo */
+  display: flex;
+  gap: 15px; /* espaço entre os radios */
+  margin: 10px 0; /* espaço acima e abaixo */
 }
 .divCheckbox label {
-    display: flex;
-    align-items: center;
-    gap: 5px;         /* espaço entre o botão e o texto */
+  display: flex;
+  align-items: center;
+  gap: 5px; /* espaço entre o botão e o texto */
 }
-.divError{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #dc88b665;
-    color: #8b1a34;
-    text-align: center;
-    height: 2rem;
-
+.divError {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #dc88b665;
+  color: #8b1a34;
+  text-align: center;
+  height: 2rem;
 }
 /* CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ---------------------- */
 
@@ -311,46 +285,227 @@ nav button{
 /* CONTAINER FOR SINGLE LIST DIV -----------------------------*/
 /* CONTAINER FOR SINGLE LIST DIV -----------------------------*/
 
-
-#divToShowLists{
-    display: flex;
-    flex-wrap: wrap;
-    width: auto;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding-left: 10%;
-    padding-right: 10%;
-    margin-bottom: 4rem;
+#divToShowLists {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100vw;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-left: 10%;
+  padding-right: 10%;
+  margin-bottom: 4rem;
 }
-.divToShowSingleList{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 8rem;
-    gap:0.5rem;
-
+.divToShowSingleList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 8rem;
+  gap: 0.5rem;
 }
-.divToShowSingleList img{
-    width:8rem;
-    height: 8rem;
+.divToShowSingleList img {
+  width: 8rem;
+  height: 8rem;
 }
 
-.divToShowSingleList p{
-    overflow-wrap: break-word;
-    width: 8rem;
-    height:7.3rem;
+.divToShowSingleList p {
+  overflow-wrap: break-word;
+  width: 8rem;
+  height: 7.3rem;
+}
+/*------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+ DIV FOR SHOW TASKS
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------*/
+
+#divListsAndTasks {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 300px;
+
+  width: 90vw;
+}
+.divShowing {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding-top: 2rem;
+  width: 90vw;
+  background-color: #5008629e;
+  margin-top: 1rem;
+  border-radius: 2rem 2rem 0 0;
+  min-height: 150px;
+}
+.divShowing h2 {
+  text-align: center;
+  color: #f2f2f2d2;
+
+  display: block;
+  width: 95%;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  font-size: 1.5rem;
+  padding: 1rem;
+}
+.divShowing span {
+  padding-top: 2rem;
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+}
+#editList {
+  background-color: #55db96b5;
+}
+#deleteList {
+  background-color: rgba(221, 63, 126, 0.769);
+}
+.divShowing span button {
+  border-radius: 0.3rem;
+  font-size: 1rem;
+  padding: 0.3rem;
+  width: 6rem;
 }
 
-footer{
-   
-    display: flex;
-    height: 3rem;
-    background-color: #438ab3;
-    color: rgba(255, 255, 255, 0.656);
-    flex-direction: row;
-    justify-content: flex-end;
-    padding: 1rem;
-    font-size: 0.7rem;
+.divCreateTask {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.5rem;
+  width: 100%;
+
+  background-color: #16c7bb92;
+}
+.divCreateTask input {
+  width: 100%;
+  border: none;
+  font-size: 1rem;
+  color: #0f8da0;
+  padding-left: 1rem;
+}
+.divCreateTask input:focus {
+  outline: none;
+  border: 2px, solid, #35ade5;
+  font-weight: 400;
+  font-family: "Capriola", sans-serif, Arial, Helvetica, sans-serif;
+}
+
+#buttonCreateTask {
+  background-color: #339d86;
+}
+
+.divCreateTask input::placeholder {
+  font-size: 1rem;
+  color: #2b8f9f;
+}
+
+.divCreateTask button {
+  border-radius: 0.3rem;
+  width: 5rem;
+}
+.divAllTasks {
+  padding-bottom: 2rem;
+  min-height: 5rem;
+
+  width: 90vw;
+}
+.divTask {
+  display: flex;
+  flex-direction: column;
+  /* padding horizontal em vez de top/bottom */
+
+  width: 90vw;
+  margin: 0 auto; /* centraliza na tela */
+  flex-wrap: wrap;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  min-height: 3rem;
+}
+#divTaskColor1 {
+  background-color: #ae5ea789;
+}
+#divTaskColor2 {
+  background-color: #6131bc85;
+}
+.pTask[contenteditable="true"] {
+  outline: none;
+  border: none;
+  background: inherit;
+  background-color: #d8f2c953;
+}
+
+.divTask span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-height: 2rem;
+}
+.spanForTask {
+  display: flex;
+  width: 100%;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+}
+.spanForButton {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: end;
+  padding-right: 1rem;
+  width: 100%;
+}
+.spanForButton button {
+  border-radius: 0.3rem;
+  padding: 0.3rem;
+  width: 5rem;
+}
+
+.divTask checkbox {
+  width: 5%;
+}
+.thecheckbox {
+  transform: scale(1.5);
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+#numberTaskP {
+  padding-right: 1rem;
+  color: #a10836b9;
+}
+.pTask {
+  display: block;
+  width: 95%;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  font-size: 1.2rem;
+  padding-right: 1rem;
+}
+
+#buttonEditTask {
+  background-color: #c2e53589;
+}
+#buttonDeleteTask {
+  background-color: #e5443583;
+}
+
+#buttonToSaveEdit {
+  width: 9rem;
+  border-radius: 0.3rem;
+  background-color: #3dc9dc85;
+  padding: 0.2rem;
+}
+
+footer {
+  display: flex;
+  height: 3rem;
+  background-color: #438ab3;
+  color: rgba(255, 255, 255, 0.656);
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 1rem;
+  font-size: 0.7rem;
 }
