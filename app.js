@@ -179,7 +179,6 @@ if (buttonSignOut) {
 //----------------------------------------------------------------------
 
 let lists = JSON.parse(localStorage.getItem("lists")) || [];
-let listId = lists.length;
 
 document.addEventListener("DOMContentLoaded", () => {
   const buttonCreateList = document.getElementById("buttonCreateList");
@@ -202,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
   textArea.classList.add("textArea");
   textArea.rows = 5;
   textArea.maxLength = 100;
-  textArea.placeholder = "A lista deve ter um nome";
+  textArea.placeholder = "List shall be a name";
 
   const labelCheckbox = document.createElement("label");
   labelCheckbox.append("Choose a List Type");
@@ -247,8 +246,9 @@ document.addEventListener("DOMContentLoaded", () => {
   buttonSave.addEventListener("click", (event) => {
     event.preventDefault();
 
-    const name = textArea.value;
+    const name = textArea.value.trim();
 
+    divError.innerHTML = "";
     if (!name) {
       const error = document.createElement("p");
       error.innerHTML = "Please, give a name to your list";
@@ -263,9 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const type = selectedRadio ? selectedRadio.value : null;
 
-    listId++;
-
-    const newList = { listId, name, type, tasks: [] };
+    const newList = { listId: Date.now(), name, type, tasks: [] };
 
     lists.push(newList);
 
@@ -325,14 +323,49 @@ document.addEventListener("DOMContentLoaded", () => {
   showAllLists();
 });
 
+//MODAL MODAL --------------------------------------------------------------
+const modalDeleteList = document.createElement("div");
+modalDeleteList.id = "modalDeleteList";
+
+const modalDeleteListContent = document.createElement("div");
+modalDeleteListContent.id = "modalDeleteListContent";
+
+const modalDeleteListText = document.createElement("p");
+
+const modalDeleteListButtons = document.createElement("div");
+modalDeleteListButtons.id = "modalDeleteListButtons";
+
+const modalButtonYes = document.createElement("button");
+modalButtonYes.id = "modalButtonYes";
+modalButtonYes.textContent = "Yes";
+const modalButtonNo = document.createElement("button");
+modalButtonNo.id = "modalButtonNo";
+modalButtonNo.textContent = "No";
+
+modalDeleteListButtons.appendChild(modalButtonYes);
+modalDeleteListButtons.appendChild(modalButtonNo);
+
+modalDeleteListContent.appendChild(modalDeleteListText);
+modalDeleteListContent.appendChild(modalDeleteListButtons);
+
+modalDeleteList.appendChild(modalDeleteListContent);
+
+document.body.appendChild(modalDeleteList);
+
+modalDeleteList.style.display = "none";
+
 //SHOWING A LIST
 function showSingleList(id) {
   const divListsAndTaks = document.getElementById("listsAndTasks");
   if (!divListsAndTaks) return;
   divListsAndTaks.innerHTML = "";
 
-  const index = lists.findIndex((list) => list.listId === id);
+  const index = lists.findIndex((list) => list.listId === Number(id));
 
+  if (index === -1) {
+    console.log("List not found");
+    return;
+  }
   if (index !== -1) {
     const divShowing = document.createElement("div");
     divShowing.classList.add("divShowing");
@@ -345,6 +378,16 @@ function showSingleList(id) {
     const buttonEditList = document.createElement("button");
     buttonEditList.id = "editList";
     buttonEditList.textContent = "Edit List";
+
+    const buttonSaveChangesList = document.createElement("button");
+    buttonSaveChangesList.id = "buttonSaveChangesList";
+    buttonSaveChangesList.textContent = "Save Changes";
+    buttonSaveChangesList.style.display = "none";
+
+    const buttonCancelEditList = document.createElement("button");
+    buttonCancelEditList.textContent = "Cancel";
+    buttonCancelEditList.style.display = "none";
+    buttonCancelEditList.id = "buttonCancelEditList";
 
     const buttonDeleteList = document.createElement("button");
     buttonDeleteList.id = "deleteList";
@@ -359,44 +402,99 @@ function showSingleList(id) {
 
     const buttonCreateTask = document.createElement("button");
     buttonCreateTask.id = "buttonCreateTask";
-    buttonCreateTask.innerHTML = "Criate";
+    buttonCreateTask.innerHTML = "Create";
+
+    const divDeleteAllTasks = document.createElement("div");
+    divDeleteAllTasks.id = "divDeleteAllTasks";
+    const buttonDeleteAllTasks = document.createElement("button");
+    buttonDeleteAllTasks.id = "buttonDeleteAllTasks";
+    buttonDeleteAllTasks.innerText = "Delete all Tasks";
 
     const divAllTasks = document.createElement("div");
     divAllTasks.classList.add("divAllTasks");
 
     //DELETE LIST
     buttonDeleteList.addEventListener("click", () => {
-      lists = lists.filter((list) => list.listId !== id);
+      modalDeleteList.style.display = "flex";
 
-      localStorage.setItem("lists", JSON.stringify(lists));
+      modalDeleteListText.textContent =
+        "Are you sure you want to delete this list? Will not be possible to recuperate after that";
 
-      window.location.href = "app.html";
+      modalButtonNo.onclick = () => {
+        modalDeleteList.style.display = "none";
+      };
+
+      modalButtonYes.onclick = () => {
+        lists = lists.filter((list) => list.listId !== Number(id));
+
+        localStorage.setItem("lists", JSON.stringify(lists));
+
+        window.location.href = "app.html";
+
+        modalDeleteList.style.display = "none";
+      };
+    });
+
+    //EDIT LIST
+    buttonEditList.addEventListener("click", () => {
+      //const editListIsClicked = false;
+
+      if (buttonEditList) {
+        listName.contentEditable = true;
+        listName.focus();
+
+        buttonEditList.style.display = "none";
+        buttonDeleteList.style.display = "none";
+        buttonSaveChangesList.style.display = "inline-block";
+        buttonCancelEditList.style.display = "inline-block";
+
+        buttonSaveChangesList.addEventListener("click", () => {
+          lists[index].name = listName.textContent;
+
+          listName.contentEditable = false;
+
+          localStorage.setItem("lists", JSON.stringify(lists));
+
+          buttonEditList.style.display = "inline-block";
+          buttonDeleteList.style.display = "inline-block";
+          buttonSaveChangesList.style.display = "none";
+          buttonCancelEditList.style.display = "none";
+
+          showSingleList(Number(id));
+        });
+
+        buttonCancelEditList.addEventListener("click", () => {
+          listName.textContent = lists[index].name;
+          listName.contentEditable = false;
+          buttonEditList.style.display = "inline-block";
+          buttonDeleteList.style.display = "inline-block";
+          buttonSaveChangesList.style.display = "none";
+          buttonCancelEditList.style.display = "none";
+        });
+      }
     });
 
     //SAVING TASK
 
     buttonCreateTask.addEventListener("click", () => {
-      let lastId;
+      if (!listInput.value.trim()) return;
 
-      if (lists[index].tasks.length === 0) {
-        lastId = 0;
-      } else {
-        lastId = lists[index].tasks[lists[index].tasks.length - 1].id;
-      }
+      const newTask = { id: Date.now(), taskName: listInput.value.trim() };
 
-      const newTask = { id: lastId + 1, taskName: listInput.value };
-
+      lists[index].tasks = lists[index].tasks || [];
       lists[index].tasks.push(newTask);
 
       localStorage.setItem("lists", JSON.stringify(lists));
 
       listInput.value = "";
 
-      showSingleList(id);
+      showSingleList(Number(id));
     });
 
     spanForButton.appendChild(buttonEditList);
     spanForButton.appendChild(buttonDeleteList);
+    spanForButton.appendChild(buttonSaveChangesList);
+    spanForButton.appendChild(buttonCancelEditList);
 
     divShowing.appendChild(listName);
     divShowing.appendChild(spanForButton);
@@ -404,8 +502,11 @@ function showSingleList(id) {
     divCreateTask.appendChild(listInput);
     divCreateTask.appendChild(buttonCreateTask);
 
+    divDeleteAllTasks.append(buttonDeleteAllTasks);
+
     divListsAndTaks.appendChild(divShowing);
     divListsAndTaks.appendChild(divCreateTask);
+    divListsAndTaks.appendChild(divDeleteAllTasks);
     divListsAndTaks.appendChild(divAllTasks);
 
     lists[index].tasks.forEach((thisTask, count) => {
@@ -526,58 +627,73 @@ function showSingleList(id) {
 
       divAllTasks.appendChild(divTask);
 
-      divListsAndTaks.appendChild(divAllTasks);
+      //divListsAndTaks.appendChild(divAllTasks);
     });
-  }
 
-  console.log(lists[index]);
+    //REMOVE ALL TASKS ----------------------------------------------------------------------------
+
+    buttonDeleteAllTasks.onclick = () => {
+      if (lists[index].tasks && lists[index].tasks.length > 0) {
+        modalDeleteList.style.display = "flex";
+        modalDeleteListText.textContent =
+          "Are you sure you want to remove all the tasks? It will not be possible to recover them after that.";
+
+        modalButtonNo.onclick = () => {
+          modalDeleteList.style.display = "none";
+        };
+        modalButtonYes.onclick = () => {
+          lists[index].tasks = [];
+          localStorage.setItem("lists", JSON.stringify(lists));
+
+          modalDeleteList.style.display = "none";
+
+          showSingleList(lists[index].listId);
+        };
+      } else {
+        modalDeleteList.style.display = "flex";
+        modalDeleteListText.textContent = "This list has no tasks.";
+        modalButtonNo.style.display = "none";
+        modalButtonYes.innerText = "Ok";
+
+        modalButtonYes.onclick = () => {
+          modalDeleteList.style.display = "none";
+          modalButtonNo.style.display = "inline-block";
+          modalButtonYes.innerText = "Yes";
+        };
+      }
+    };
+  }
+  if (index !== -1) {
+    // todo o código da lista
+    console.log(lists[index]);
+  } else {
+    console.log("List not found");
+  }
 }
 document.addEventListener("DOMContentLoaded", () => {
-  const selectedListId = Number(localStorage.getItem("selectedListId"));
+  const selectedListId = localStorage.getItem("selectedListId");
+
   if (selectedListId) {
-    showSingleList(selectedListId);
+    showSingleList(Number(selectedListId));
   }
 });
 
 /*
 TODO
 
-TOMORROW:
-
-* Change ID to a proper data type
-* Add Edit List feature
-* Add "Delete All Tasks"
-* Add a new category type with options to create lists based on hours or days
-* Add functionality to check if radio inputs exist
-
 NEXT STEPS:
 
+* Add a new category type with options to create lists based on hours or days
+* Add functionality to check if radio inputs exist
+* Fix null pointer bugs on lines 192, and 291 (null).
+
+* Implement data separation by user.
 * Move the logic to Firebase Database
 * Try to implement notifications based on task time and day
 * Improve the design
 * Add media queries :)
   */
 
-/*
-function editList(id, changes) {
-  const index = lists.find((list) => list.listId === id);
-  if (index) {
-    if (changes.name) index.name = changes.name;
-    if (changes.type) index.type = changes.type;
-  }
-  console.log(lists);
-}
-
-
 //----------------------------------------------------------------
 //DEALING WITH TASKS
 //-----------------------------------------------------------------
-
-function removeAllTasks(id) {
-  const list = lists.find((list) => list.listId === id);
-
-  if (!list) return;
-
-  list.tasks.length = 0;
-}
-*/
