@@ -7,18 +7,18 @@ import {
   signOut,
 } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
 
-//import {
-//    getFirestore,
-//    collection,
-//    addDoc,
-//    getDocs,
-//    query,
-//    doc,
-//    updateDoc,
-//    deleteDoc,
-//    orderBy,
-//    serverTimestamp
-//} from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    query,
+    doc,
+    updateDoc,
+    deleteDoc,
+    orderBy,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
 // personal firebase configuration
 const firebaseConfig = {
@@ -34,6 +34,7 @@ const firebaseConfig = {
 // inicia o firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 //to create nice advices
 function advices(advice, type) {
@@ -183,6 +184,8 @@ let lists = JSON.parse(localStorage.getItem("lists")) || [];
 document.addEventListener("DOMContentLoaded", () => {
   const buttonCreateList = document.getElementById("buttonCreateList");
 
+  if (!buttonCreateList) return;
+
   const creatingDiv = document.getElementById("creatingDiv");
 
   const container = document.createElement("div");
@@ -201,7 +204,12 @@ document.addEventListener("DOMContentLoaded", () => {
   textArea.classList.add("textArea");
   textArea.rows = 5;
   textArea.maxLength = 100;
-  textArea.placeholder = "List shall be a name";
+  textArea.placeholder = "List shall have a name";
+
+  const divCheckBoxAddTime = document.createElement("div");
+  divCheckBoxAddTime.classList.add("divCheckBoxAddTime");
+
+  const optionsAddTime = ["Time in hours", "Specific Day"]; //arrumar isso aqui
 
   const labelCheckbox = document.createElement("label");
   labelCheckbox.append("Choose a List Type");
@@ -217,6 +225,9 @@ document.addEventListener("DOMContentLoaded", () => {
   buttonSave.innerHTML = "Salvar";
 
   const options = ["for Day", "for Year", "for Life"];
+
+  const labelCheckBoxAddTime = document.createElement("label");
+  labelCheckBoxAddTime.append("Choose how the tasks will be: ");
 
   container.appendChild(textArea);
   container.appendChild(document.createElement("br"));
@@ -237,6 +248,27 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   container.appendChild(divCheckbox);
+  container.appendChild(document.createElement("br"));
+
+  container.appendChild(labelCheckBoxAddTime);
+  container.appendChild(document.createElement("br"));
+
+  optionsAddTime.forEach((option) => {
+    const label = document.createElement("label");
+
+    const checkboxInput = document.createElement("input");
+    checkboxInput.type = "checkbox";
+    checkboxInput.name = "timeOfTasks";
+    checkboxInput.value = option;
+
+    label.appendChild(checkboxInput);
+    label.append(" " + option);
+
+    divCheckBoxAddTime.appendChild(label);
+  });
+
+  container.appendChild(divCheckBoxAddTime);
+
   container.appendChild(divError);
   container.appendChild(buttonSave);
 
@@ -261,9 +293,21 @@ document.addEventListener("DOMContentLoaded", () => {
       'input[name="typeOfList"]:checked',
     );
 
+    const selectedTime = container.querySelectorAll(
+      'input[name="timeOfTasks"]:checked',
+    );
+
     const type = selectedRadio ? selectedRadio.value : null;
 
-    const newList = { listId: Date.now(), name, type, tasks: [] };
+    const taskTime = [...selectedTime].map((input) => input.value);
+
+    const newList = {
+      listId: Date.now(),
+      name,
+      type,
+      tasks: [],
+      taskTime: taskTime,
+    };
 
     lists.push(newList);
 
@@ -276,6 +320,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (selectedRadio) {
       selectedRadio.checked = false;
     }
+    selectedTime.forEach((input) => {
+      input.checked = false;
+    });
 
     container.style.display = "none";
   });
@@ -288,6 +335,9 @@ document.addEventListener("DOMContentLoaded", () => {
 //SHOW ALL LISTS
 function showAllLists() {
   const divToShowLists = document.getElementById("divToShowLists");
+
+  if (!divToShowLists) return;
+
   divToShowLists.innerHTML = "";
 
   const imageMap = {
@@ -396,6 +446,8 @@ function showSingleList(id) {
     const divCreateTask = document.createElement("div");
     divCreateTask.classList.add("divCreateTask");
 
+    const spanForNewTask = document.createElement('span');
+
     const listInput = document.createElement("input");
     listInput.placeholder = "Type here your new task";
     listInput.maxLength = 100;
@@ -476,12 +528,69 @@ function showSingleList(id) {
 
     //SAVING TASK
 
+
+    
+    const labelForTime = document.createElement("label");
+    labelForTime.innerText = "Select Hour";
+    labelForTime.htmlFor = "inputForTime";
+
+    const inputForTime = document.createElement("input");
+    inputForTime.id = "inputForTime";
+    inputForTime.type = "time";
+
+    const labelForDay = document.createElement("label");
+    labelForDay.innerText = "Select Date";
+    labelForDay.htmlFor = "inputForDay";
+
+    const inputForDay = document.createElement("input");
+    inputForDay.id = "inputForDay";
+    inputForDay.type = "date";
+
     buttonCreateTask.addEventListener("click", () => {
       if (!listInput.value.trim()) return;
+      const day = inputForDay ? inputForDay.value : "";
+      const time = inputForTime ? inputForTime.value : "";
 
-      const newTask = { id: Date.now(), taskName: listInput.value.trim() };
+      let newTask = {};
+
+      if (!lists[index].taskTime || lists[index].taskTime.length === 0) {
+    newTask = {
+      id: Date.now(),
+      taskName: listInput.value.trim(),
+      completed: false,
+    };
+      } else if (lists[index].taskTime.length === 2) {
+        newTask = {
+          id: Date.now(),
+          taskName: listInput.value.trim(),
+          completed: false,
+          day,
+          time,
+        };
+      } else if (
+        lists[index].taskTime.length === 1 &&
+        lists[index].taskTime[0] === "Time in hours"
+      ) {
+        newTask = {
+          id: Date.now(),
+          taskName: listInput.value.trim(),
+          completed: false,
+          time,
+        };
+      } else if (
+        lists[index].taskTime.length === 1 &&
+        lists[index].taskTime[0] === "Specific Day"
+      ) {
+        newTask = {
+          id: Date.now(),
+          taskName: listInput.value.trim(),
+          completed: false,
+          day,
+        };
+      }
 
       lists[index].tasks = lists[index].tasks || [];
+
       lists[index].tasks.push(newTask);
 
       localStorage.setItem("lists", JSON.stringify(lists));
@@ -501,11 +610,39 @@ function showSingleList(id) {
 
     divCreateTask.appendChild(listInput);
     divCreateTask.appendChild(buttonCreateTask);
+    
+
 
     divDeleteAllTasks.append(buttonDeleteAllTasks);
 
     divListsAndTaks.appendChild(divShowing);
     divListsAndTaks.appendChild(divCreateTask);
+
+    const divForTime = document.createElement("div");
+    divForTime.id = "divForTime";
+
+
+    if (
+      lists[index].taskTime?.length === 1 &&
+      lists[index].taskTime[0] === "Time in hours"
+    ) {
+      divForTime.appendChild(labelForTime);
+      divForTime.appendChild(inputForTime);
+    } else if (
+      lists[index].taskTime?.length === 1 &&
+      lists[index].taskTime[0] === "Specific Day"
+    ) {
+      divForTime.appendChild(labelForDay);
+      divForTime.appendChild(inputForDay);
+    } else if (lists[index].taskTime?.length === 2) {
+      divForTime.appendChild(labelForDay);
+      divForTime.appendChild(inputForDay);
+      divForTime.appendChild(labelForTime);
+      divForTime.appendChild(inputForTime);
+    }
+    if (divForTime.children.length > 0) {
+      divCreateTask.appendChild(divForTime);
+    }
     divListsAndTaks.appendChild(divDeleteAllTasks);
     divListsAndTaks.appendChild(divAllTasks);
 
@@ -518,10 +655,58 @@ function showSingleList(id) {
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.classList.add("thecheckbox");
+      checkbox.checked = thisTask.completed || false;
+
+      checkbox.addEventListener("change", () => {
+        thisTask.completed = checkbox.checked;
+        localStorage.setItem("lists", JSON.stringify(lists));
+      });
 
       const numberTaskP = document.createElement("p");
       numberTaskP.id = "numberTaskP";
       numberTaskP.innerText = count + 1 + "-";
+
+      const divTimeHourTask = document.createElement("div");
+      divTimeHourTask.id = "divTaskHourTask";
+
+      const hourP = document.createElement("p");
+      hourP.innerText = thisTask.time || "";
+
+      const dayP = document.createElement("p");
+      dayP.innerText = thisTask.day || "";
+
+      const inputForChangeDay = document.createElement("input");
+      inputForChangeDay.id = "inputForChangeDay";
+      inputForChangeDay.type = "date";
+      inputForChangeDay.style.display = "none";
+      inputForChangeDay.value = thisTask.day || "";
+
+      const inputForChangeHour = document.createElement("input");
+      inputForChangeHour.id = "inputForChangeHour";
+      inputForChangeHour.type = "time";
+      inputForChangeHour.style.display = "none";
+      inputForChangeHour.value = thisTask.time || "";
+
+      const taskTime = lists[index].taskTime || [];
+
+if (taskTime.length === 1 && taskTime[0] === "Time in hours") {
+  divTimeHourTask.appendChild(inputForChangeHour);
+  divTimeHourTask.appendChild(hourP);
+
+} else if (taskTime.length === 1 && taskTime[0] === "Specific Day") {
+  divTimeHourTask.appendChild(inputForChangeDay);
+  divTimeHourTask.appendChild(dayP);
+
+} else if (taskTime.length === 2) {
+  divTimeHourTask.appendChild(inputForChangeDay);
+  divTimeHourTask.appendChild(dayP);
+  divTimeHourTask.appendChild(inputForChangeHour);
+  divTimeHourTask.appendChild(hourP);
+}
+
+      if (divTimeHourTask.children.length > 0) {
+        divTask.appendChild(divTimeHourTask);
+      }
 
       if ((count + 1) % 2 !== 0) {
         divTask.id = "divTaskColor1";
@@ -568,6 +753,15 @@ function showSingleList(id) {
           theTaskP.contentEditable = true;
           theTaskP.focus();
 
+          if (hourP) {
+            hourP.style.display = "none";
+            inputForChangeHour.style.display = "inline-block";
+          }
+          if (dayP) {
+            dayP.style.display = "none";
+            inputForChangeDay.style.display = "inline-block";
+          }
+
           buttonEditTask.style.display = "none";
           buttonDeleteTask.style.display = "none";
 
@@ -575,10 +769,18 @@ function showSingleList(id) {
 
           buttonToSaveEdit.onclick = () => {
             lists[index].tasks[taskIndex].taskName = theTaskP.textContent;
+            lists[index].tasks[taskIndex].time = inputForChangeHour.value;
+            lists[index].tasks[taskIndex].day = inputForChangeDay.value;
 
             localStorage.setItem("lists", JSON.stringify(lists));
 
             theTaskP.contentEditable = false;
+
+            hourP.style.display = "inline-block";
+            inputForChangeHour.style.display = "none";
+
+            dayP.style.display = "inline-block";
+            inputForChangeDay.style.display = "none";
 
             buttonEditTask.style.display = "inline-block";
             buttonDeleteTask.style.display = "inline-block";
@@ -682,10 +884,6 @@ document.addEventListener("DOMContentLoaded", () => {
 TODO
 
 NEXT STEPS:
-
-* Add a new category type with options to create lists based on hours or days
-* Add functionality to check if radio inputs exist
-* Fix null pointer bugs on lines 192, and 291 (null).
 
 * Implement data separation by user.
 * Move the logic to Firebase Database
