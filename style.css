@@ -184,7 +184,7 @@ nav button {
 
 /*-----------------wallpaperimages----------*/
 .img1 {
-  background-image: url("../ToDoListImgs/coocker.png");
+  background-image: url("ToDoListImgs/coocker.png");
   top: -3rem;
   left: -2rem;
   z-index: 1;
@@ -194,7 +194,7 @@ nav button {
 }
 
 .img2 {
-  background-image: url("../ToDoListImgs/littleGirl.png");
+  background-image: url("ToDoListImgs/littleGirl.png");
   top: 2rem;
   left: 3rem;
 
@@ -203,7 +203,7 @@ nav button {
   z-index: 4;
 }
 .img3 {
-  background-image: url("../ToDoListImgs/Guy.png");
+  background-image: url("ToDoListImgs/Guy.png");
   top: -2rem;
   left: 7.4rem;
   z-index: 2;
@@ -213,7 +213,7 @@ nav button {
 }
 
 .img4 {
-  background-image: url("../ToDoListImgs/oldLady.png");
+  background-image: url("ToDoListImgs/oldLady.png");
   top: -1rem;
   left: 10.5rem;
   z-index: 3;
