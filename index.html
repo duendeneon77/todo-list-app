@@ -1,45 +1,63 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>To Do List</title>
-</head>
-<body>
+  </head>
+  <body>
     <div>
-    <header>
-        <h1>To Do List</h1>
-    </header>
-    <nav>
-        
-        <!--<button id="button1">Login</button>
-        <button id="button2">Register</button>
-        <button id="buttonSignOut">Inicial</button>-->
-        
-    </nav>
+      <header>
+        <img
+          src="ToDoListImgs/logo.png"
+          alt="Your Digital List App"
+          id="titleImg"
+        />
+      </header>
     </div>
-    <div id="content">
-        <form action="submit">
-            
-            <input type="email" name="email" id="email" placeholder="Enter your Email" >
-            <input type="password" name="password" id="password" placeholder="Enter your Password" >
-            <div id="buttonContainer">
-                <button id="buttonLogin">Login</button>
-                <div id="advices"></div>
-                <p>If you don't have an account, please register by clicking the button below.</p>
-                <a href="register.html">
+    <div id="contentForm">
+      <div id="wallpaper">
+        <div class="bg">
+            <div class="img img1"></div>
+             <div class="img img2"></div>
+            <div class="img img3"></div>
+            <div class="img img4"></div>
+            <form action="submit" id="formLogin">
+            <div id="forForm">
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Enter your Email"
+          />
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Enter your Password"
+          />
+          <div id="buttonContainer">
+            <button id="buttonLogin">Login</button>
+            <div id="advices"></div>
+              <p>
+                If you don't have an account, please register by clicking the
+                button below.
+              </p>
+              <a href="register.html">
                 <button id="buttonRegistrate" type="button">Register</button>
-                </a>
+              </a>
             </div>
+          </div>
         </form>
+        </div>
         
-
+       </div>
+      </div>
     </div>
     <footer>
-        <p>&copy;Created at 2026</p>
+      <p>&copy;Created at 2026</p>
     </footer>
     <script type="module" src="app.js"></script>
-    
-</body>
+  </body>
 </html>

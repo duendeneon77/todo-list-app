@@ -19,6 +19,7 @@ import {
   orderBy,
   serverTimestamp,
   where,
+  setDoc,
 } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
 // personal firebase configuration
@@ -190,9 +191,8 @@ async function saveListToFirestore(list) {
   await addDoc(collection(db, "lists"), {
     userId: user.uid,
     name: list.name,
-    type: list.type,
+    color: list.color,
     tasks: list.tasks || [],
-    taskTime: list.taskTime,
     createdAt: serverTimestamp(),
   });
 }
@@ -216,6 +216,7 @@ async function loadLists() {
       ...doc.data(),
     });
   });
+  lists.reverse();
   showAllLists();
 
   const selectedListId = localStorage.getItem("selectedListId");
@@ -249,14 +250,9 @@ document.addEventListener("DOMContentLoaded", () => {
   textArea.maxLength = 100;
   textArea.placeholder = "List shall have a name";
 
-  const divCheckBoxAddTime = document.createElement("div");
-  divCheckBoxAddTime.classList.add("divCheckBoxAddTime");
-
-  const optionsAddTime = ["Time in hours", "Specific Day"]; //arrumar isso aqui
-
   const labelCheckbox = document.createElement("p");
 
-  labelCheckbox.append("Choose a List Type");
+  labelCheckbox.append("Choose a List Color");
 
   const divCheckbox = document.createElement("div");
   divCheckbox.classList.add("divCheckbox");
@@ -268,59 +264,35 @@ document.addEventListener("DOMContentLoaded", () => {
   buttonSave.classList.add("buttonSave");
   buttonSave.innerHTML = "Save";
 
-  const options = [
-    "ingredients",
-    "Household chores",
-    "Study topics",
-    "Travel plans",
-    "Movies to watch",
-    "Shopping list",
-    "School supplies",
-    "Bills to pay",
+  const colorOptions = [
+    "Lime",
+    "Aqua",
+    "Yellow",
+    "Purple",
+    "CherryRed",
+    "Pink",
+    "Orange",
+    "Blue",
   ];
 
-  const labelCheckBoxAddTime = document.createElement("p");
-  labelCheckBoxAddTime.append("Choose how the tasks will be: ");
-
   container.appendChild(textArea);
-  container.appendChild(document.createElement("br"));
   container.appendChild(labelCheckbox);
 
-  options.forEach((option) => {
+  colorOptions.forEach((color) => {
     const label = document.createElement("label");
 
     const radioInput = document.createElement("input");
     radioInput.type = "radio";
-    radioInput.name = "typeOfList";
-    radioInput.value = option;
+    radioInput.name = "colorOfList";
+    radioInput.value = color;
 
     label.appendChild(radioInput);
-    label.append(" " + option);
+    label.append(" " + color);
 
     divCheckbox.appendChild(label);
   });
 
   container.appendChild(divCheckbox);
-  container.appendChild(document.createElement("br"));
-
-  container.appendChild(labelCheckBoxAddTime);
-  container.appendChild(document.createElement("br"));
-
-  optionsAddTime.forEach((option) => {
-    const label = document.createElement("label");
-
-    const checkboxInput = document.createElement("input");
-    checkboxInput.type = "checkbox";
-    checkboxInput.name = "timeOfTasks";
-    checkboxInput.value = option;
-
-    label.appendChild(checkboxInput);
-    label.append(" " + option);
-
-    divCheckBoxAddTime.appendChild(label);
-  });
-
-  container.appendChild(divCheckBoxAddTime);
 
   container.appendChild(divError);
   container.appendChild(buttonSave);
@@ -343,22 +315,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const selectedRadio = container.querySelector(
-      'input[name="typeOfList"]:checked',
+      'input[name="colorOfList"]:checked',
     );
 
-    const selectedTime = container.querySelectorAll(
-      'input[name="timeOfTasks"]:checked',
-    );
-
-    const type = selectedRadio ? selectedRadio.value : null;
-
-    const taskTime = [...selectedTime].map((input) => input.value);
+    const color = selectedRadio ? selectedRadio.value : "default";
 
     const newList = {
       name,
-      type,
+      color,
       tasks: [],
-      taskTime: taskTime,
     };
 
     await saveListToFirestore(newList);
@@ -370,9 +335,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (selectedRadio) {
       selectedRadio.checked = false;
     }
-    selectedTime.forEach((input) => {
-      input.checked = false;
-    });
 
     container.style.display = "none";
   });
@@ -390,31 +352,60 @@ function showAllLists() {
   divToShowLists.innerHTML = "";
 
   const imageMap = {
-    ingredients: "https://www.emojiall.com/images/240/openmoji/16.0/1f7e3.png",
-    "Household chores":
-      "https://www.emojiall.com/images/240/openmoji/16.0/1f7e2.png",
-    "Study topics":
-      "https://www.emojiall.com/images/240/openmoji/16.0/1f535.png",
-    "Travel plans":
-      "https://www.emojiall.com/images/240/openmoji/16.0/1f7e3.png",
-    "Movies to watch":
-      "https://www.emojiall.com/images/240/openmoji/16.0/1f7e2.png",
-    "Shopping list":
-      "https://www.emojiall.com/images/240/openmoji/16.0/1f535.png",
-    "School supplies":
-      "https://www.emojiall.com/images/240/openmoji/16.0/1f7e3.png",
-    "Bills to pay":
-      "https://www.emojiall.com/images/240/openmoji/16.0/1f7e2.png",
-
-    default: "https://www.emojiall.com/images/240/openmoji/16.0/26aa.png",
+    Lime: "ToDoListImgs/yellowpink.png",
+    Aqua: "ToDoListImgs/orange.png",
+    Yellow: "ToDoListImgs/pink.png",
+    Purple: "ToDoListImgs/yellow.png",
+    CherryRed: "ToDoListImgs/blue2.png",
+    Pink: "ToDoListImgs/green2.png",
+    Orange: "ToDoListImgs/green.png",
+    Blue: "ToDoListImgs/pink.png",
+    default: "ToDoListImgs/yellow.png",
   };
 
   lists.forEach((list) => {
     const divToShowSingleList = document.createElement("div");
-    divToShowSingleList.classList.add("divToShowSingleList");
+
+    switch (list.color) {
+      case "Lime":
+        divToShowSingleList.classList.add("LimeList");
+        break;
+
+      case "Aqua":
+        divToShowSingleList.classList.add("AquaList");
+        break;
+
+      case "Yellow":
+        divToShowSingleList.classList.add("YellowList");
+        break;
+
+      case "Purple":
+        divToShowSingleList.classList.add("PurpleList");
+        break;
+
+      case "CherryRed":
+        divToShowSingleList.classList.add("CherryRedList");
+        break;
+
+      case "Pink":
+        divToShowSingleList.classList.add("PinkList");
+        break;
+
+      case "Orange":
+        divToShowSingleList.classList.add("OrangeList");
+        break;
+
+      case "Blue":
+        divToShowSingleList.classList.add("BlueList");
+        break;
+
+      default:
+        divToShowSingleList.classList.add("DefaultColorList");
+        break;
+    }
 
     const divToShowSingleListImage = document.createElement("img");
-    divToShowSingleListImage.src = imageMap[list.type] || imageMap.default;
+    divToShowSingleListImage.src = imageMap[list.color] || imageMap.default;
 
     const divToShowSingleListP = document.createElement("p");
     divToShowSingleListP.textContent = list.name;
@@ -467,6 +458,35 @@ document.body.appendChild(modalDeleteList);
 modalDeleteList.style.display = "none";
 
 //SHOWING A LIST
+
+function formatDate(dateString) {
+  if (!dateString) return "";
+
+  const date = new Date(dateString);
+
+  const day = String(date.getDate()).padStart(2, "0");
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
+
+  return ` ${day} - ${month} - ${year}`;
+}
+
 function showSingleList(id) {
   const divListsAndTaks = document.getElementById("listsAndTasks");
   if (!divListsAndTaks) return;
@@ -493,7 +513,7 @@ function showSingleList(id) {
 
     const buttonSaveChangesList = document.createElement("button");
     buttonSaveChangesList.id = "buttonSaveChangesList";
-    buttonSaveChangesList.textContent = "Save Changes";
+    buttonSaveChangesList.textContent = "Save";
     buttonSaveChangesList.style.display = "none";
 
     const buttonCancelEditList = document.createElement("button");
@@ -508,9 +528,8 @@ function showSingleList(id) {
     const divCreateTask = document.createElement("div");
     divCreateTask.classList.add("divCreateTask");
 
-    const spanForNewTask = document.createElement("span");
-
     const listInput = document.createElement("input");
+    listInput.id = "listInput";
     listInput.placeholder = "Type here your new task";
     listInput.maxLength = 100;
 
@@ -519,10 +538,149 @@ function showSingleList(id) {
     buttonCreateTask.innerHTML = "Create";
 
     const divDeleteAllTasks = document.createElement("div");
-    divDeleteAllTasks.id = "divDeleteAllTasks";
+    divDeleteAllTasks.classList.add("divDeleteAllTasks");
     const buttonDeleteAllTasks = document.createElement("button");
     buttonDeleteAllTasks.id = "buttonDeleteAllTasks";
     buttonDeleteAllTasks.innerText = "Delete all Tasks";
+
+    const divOrganizeTask = document.createElement("div");
+    divOrganizeTask.classList.add("divOrganizeTask");
+
+    const divOrganizeTaskP = document.createElement("p");
+    divOrganizeTaskP.innerText = "Show tasks by:";
+
+    const divOrganizeTaskSpan = document.createElement("span");
+    divOrganizeTaskSpan.id = "divOrganizeTaskSpan";
+
+    const buttonOrganizeByCreation = document.createElement("button");
+    buttonOrganizeByCreation.id = "buttonOrganizeByCreation";
+    buttonOrganizeByCreation.innerText = "creation";
+
+    const buttonOrganizeByDate = document.createElement("button");
+    buttonOrganizeByDate.id = "buttonOrganizeByDate";
+    buttonOrganizeByDate.innerText = "date";
+
+    const divOrganizeTaskSpan2 = document.createElement("span");
+    divOrganizeTaskSpan2.id = "divOrganizeTaskSpan2";
+
+    const buttonOrganizeByMonth = document.createElement("button");
+    buttonOrganizeByMonth.id = "buttonOrganizeByMonth";
+    buttonOrganizeByMonth.innerText = "month";
+
+    const buttonOrganizeByHour = document.createElement("button");
+    buttonOrganizeByHour.id = "buttonOrganizeByHour";
+    buttonOrganizeByHour.innerText = "hour";
+
+    divOrganizeTaskSpan.appendChild(buttonOrganizeByCreation);
+    divOrganizeTaskSpan.appendChild(buttonOrganizeByDate);
+    divOrganizeTaskSpan2.appendChild(buttonOrganizeByMonth);
+    divOrganizeTaskSpan2.appendChild(buttonOrganizeByHour);
+
+    divOrganizeTask.appendChild(divOrganizeTaskP);
+
+    divOrganizeTask.appendChild(divOrganizeTaskSpan);
+    divOrganizeTask.appendChild(divOrganizeTaskSpan2);
+
+    const colorClass = lists[index].color.trim();
+
+    divShowing.classList.add("divShowing", colorClass);
+
+    divCreateTask.classList.add("divCreateTask", colorClass);
+    divDeleteAllTasks.classList.add("divDeleteAllTasks", colorClass);
+    divOrganizeTask.classList.add("divOrganizeTask", colorClass);
+
+    buttonOrganizeByCreation.onclick = () => {
+      const tasks = lists[index].tasks || [];
+      lists[index].tasks = [...tasks].sort((a, b) => a.id - b.id);
+      showSingleList(lists[index].listId);
+    };
+
+    buttonOrganizeByMonth.onclick = () => {
+      const tasks = lists[index].tasks || [];
+
+      if (!tasks.every((t) => t.day && t.day.trim() !== "")) {
+        modalDeleteList.style.display = "flex";
+        modalDeleteListText.textContent =
+          "To Organize tasks by Day and Month, all the tasks must have a defined date.";
+        modalButtonNo.style.display = "none";
+        modalButtonYes.innerText = "Ok";
+
+        modalButtonYes.onclick = () => {
+          modalDeleteList.style.display = "none";
+          modalButtonNo.style.display = "inline-block";
+          modalButtonYes.innerText = "Yes";
+        };
+        return;
+      }
+
+      lists[index].tasks = [...tasks].sort((a, b) => {
+        const dateA = new Date(a.day);
+        const dateB = new Date(b.day);
+
+        const monthA = dateA.getMonth();
+        const monthB = dateB.getMonth();
+
+        if (monthA !== monthB) {
+          return monthA - monthB;
+        }
+
+        const dayA = dateA.getDate();
+        const dayB = dateB.getDate();
+
+        return dayA - dayB;
+      });
+
+      showSingleList(lists[index].listId);
+    };
+
+    buttonOrganizeByDate.onclick = () => {
+      const tasks = lists[index].tasks || [];
+      if (!tasks.every((t) => t.day && t.day.trim() !== "")) {
+        modalDeleteList.style.display = "flex";
+        modalDeleteListText.textContent =
+          "To Organize tasks by Date, all the tasks must have a defined date.";
+        modalButtonNo.style.display = "none";
+        modalButtonYes.innerText = "Ok";
+
+        modalButtonYes.onclick = () => {
+          modalDeleteList.style.display = "none";
+          modalButtonNo.style.display = "inline-block";
+          modalButtonYes.innerText = "Yes";
+        };
+        return;
+      }
+      lists[index].tasks = [...tasks].sort(
+        (a, b) => new Date(a.day) - new Date(b.day),
+      );
+      showSingleList(lists[index].listId);
+    };
+
+    buttonOrganizeByHour.onclick = () => {
+      const tasks = lists[index].tasks || [];
+      if (
+        !tasks.every(
+          (t) => t.day && t.day.trim() !== "" && t.time && t.time.trim() !== "",
+        )
+      ) {
+        modalDeleteList.style.display = "flex";
+        modalDeleteListText.textContent =
+          "To Organize tasks by Hour, all the tasks must have a defined hour.";
+        modalButtonNo.style.display = "none";
+        modalButtonYes.innerText = "Ok";
+
+        modalButtonYes.onclick = () => {
+          modalDeleteList.style.display = "none";
+          modalButtonNo.style.display = "inline-block";
+          modalButtonYes.innerText = "Yes";
+        };
+        return;
+      }
+      lists[index].tasks = [...tasks].sort(
+        (a, b) =>
+          new Date(`${a.day}T${a.time}`) - new Date(`${b.day}T${b.time}`),
+      );
+      showSingleList(lists[index].listId);
+    };
 
     const divAllTasks = document.createElement("div");
     divAllTasks.classList.add("divAllTasks");
@@ -551,8 +709,6 @@ function showSingleList(id) {
 
     //EDIT LIST
     buttonEditList.addEventListener("click", () => {
-      //const editListIsClicked = false;
-
       if (buttonEditList) {
         listName.contentEditable = true;
         listName.focus();
@@ -601,6 +757,9 @@ function showSingleList(id) {
     const inputForTime = document.createElement("input");
     inputForTime.id = "inputForTime";
     inputForTime.type = "time";
+    inputForTime.addEventListener("click", () => {
+      inputForTime.showPicker();
+    });
 
     const spanForDay = document.createElement("span");
     spanForDay.id = "spanForDay";
@@ -612,49 +771,22 @@ function showSingleList(id) {
     const inputForDay = document.createElement("input");
     inputForDay.id = "inputForDay";
     inputForDay.type = "date";
+    inputForDay.addEventListener("click", () => {
+      inputForDay.showPicker();
+    });
 
     buttonCreateTask.addEventListener("click", async () => {
       if (!listInput.value.trim()) return;
-      const day = inputForDay ? inputForDay.value : "";
-      const time = inputForTime ? inputForTime.value : "";
+      const day = inputForDay.value;
+      const time = inputForTime.value;
 
-      let newTask = {};
-
-      if (!lists[index].taskTime || lists[index].taskTime.length === 0) {
-        newTask = {
-          id: Date.now(),
-          taskName: listInput.value.trim(),
-          completed: false,
-        };
-      } else if (lists[index].taskTime.length === 2) {
-        newTask = {
-          id: Date.now(),
-          taskName: listInput.value.trim(),
-          completed: false,
-          day,
-          time,
-        };
-      } else if (
-        lists[index].taskTime.length === 1 &&
-        lists[index].taskTime[0] === "Time in hours"
-      ) {
-        newTask = {
-          id: Date.now(),
-          taskName: listInput.value.trim(),
-          completed: false,
-          time,
-        };
-      } else if (
-        lists[index].taskTime.length === 1 &&
-        lists[index].taskTime[0] === "Specific Day"
-      ) {
-        newTask = {
-          id: Date.now(),
-          taskName: listInput.value.trim(),
-          completed: false,
-          day,
-        };
-      }
+      let newTask = {
+        id: Date.now(),
+        taskName: listInput.value.trim(),
+        completed: false,
+        day,
+        time,
+      };
 
       lists[index].tasks = lists[index].tasks || [];
 
@@ -664,6 +796,9 @@ function showSingleList(id) {
         tasks: lists[index].tasks,
       });
       listInput.value = "";
+
+      inputForDay.value = "";
+      inputForTime.value = "";
 
       showSingleList(id);
     });
@@ -681,35 +816,16 @@ function showSingleList(id) {
     const divForTime = document.createElement("div");
     divForTime.id = "divForTime";
 
-    const taskTime = lists[index].taskTime || [];
+    spanForTime.appendChild(labelForTime);
+    spanForTime.appendChild(inputForTime);
 
-    if (
-      lists[index].taskTime?.length === 1 &&
-      lists[index].taskTime[0] === "Time in hours"
-    ) {
-      spanForTime.appendChild(labelForTime);
-      spanForTime.appendChild(inputForTime);
-      divForTime.appendChild(spanForTime);
-    } else if (
-      lists[index].taskTime?.length === 1 &&
-      lists[index].taskTime[0] === "Specific Day"
-    ) {
-      spanForDay.appendChild(labelForDay);
-      spanForDay.appendChild(inputForDay);
-      divForTime.appendChild(spanForDay);
-    } else if (lists[index].taskTime?.length === 2) {
-      spanForTime.appendChild(labelForTime);
-      spanForTime.appendChild(inputForTime);
+    spanForDay.appendChild(labelForDay);
+    spanForDay.appendChild(inputForDay);
 
-      spanForDay.appendChild(labelForDay);
-      spanForDay.appendChild(inputForDay);
+    divForTime.appendChild(spanForDay);
+    divForTime.appendChild(spanForTime);
 
-      divForTime.appendChild(spanForDay);
-      divForTime.appendChild(spanForTime);
-    }
-    if (divForTime.children.length > 0) {
-      divCreateTask.appendChild(divForTime);
-    }
+    divCreateTask.appendChild(divForTime);
 
     divCreateTask.appendChild(buttonCreateTask);
 
@@ -717,8 +833,8 @@ function showSingleList(id) {
 
     divListsAndTaks.appendChild(divShowing);
     divListsAndTaks.appendChild(divCreateTask);
-
     divListsAndTaks.appendChild(divDeleteAllTasks);
+    divListsAndTaks.appendChild(divOrganizeTask);
     divListsAndTaks.appendChild(divAllTasks);
 
     (lists[index].tasks || []).forEach((thisTask, count) => {
@@ -750,13 +866,16 @@ function showSingleList(id) {
       hourP.innerText = thisTask.time || "";
 
       const dayP = document.createElement("p");
-      dayP.innerText = thisTask.day || "";
+      dayP.innerText = formatDate(thisTask.day);
 
       const inputForChangeDay = document.createElement("input");
       inputForChangeDay.id = "inputForChangeDay";
       inputForChangeDay.type = "date";
       inputForChangeDay.style.display = "none";
       inputForChangeDay.value = thisTask.day || "";
+      inputForChangeDay.addEventListener("click", () => {
+        inputForChangeDay.showPicker();
+      });
 
       const inputForChangeHour = document.createElement("input");
       inputForChangeHour.id = "inputForChangeHour";
@@ -764,30 +883,18 @@ function showSingleList(id) {
       inputForChangeHour.style.display = "none";
       inputForChangeHour.value = thisTask.time || "";
 
-      const taskTime = lists[index].taskTime || [];
-
-      if (taskTime.length === 1 && taskTime[0] === "Time in hours") {
-        divTimeHourTask.appendChild(inputForChangeHour);
-        divTimeHourTask.appendChild(hourP);
-      } else if (taskTime.length === 1 && taskTime[0] === "Specific Day") {
-        divTimeHourTask.appendChild(inputForChangeDay);
-        divTimeHourTask.appendChild(dayP);
-      } else if (taskTime.length === 2) {
-        divTimeHourTask.appendChild(inputForChangeDay);
-        divTimeHourTask.appendChild(dayP);
-        divTimeHourTask.appendChild(inputForChangeHour);
-        divTimeHourTask.appendChild(hourP);
-      }
-
-      if (divTimeHourTask.children.length > 0) {
-        divTask.appendChild(divTimeHourTask);
-      }
-
+      divTimeHourTask.appendChild(inputForChangeDay);
+      divTimeHourTask.appendChild(dayP);
+      divTimeHourTask.appendChild(inputForChangeHour);
+      divTimeHourTask.appendChild(hourP);
       if ((count + 1) % 2 !== 0) {
-        divTask.id = "divTaskColor1";
+        divTask.classList.add("divTaskColor1", colorClass);
       } else {
-        divTask.id = "divTaskColor2";
+        divTask.classList.add("divTaskColor2", colorClass);
       }
+      inputForChangeHour.addEventListener("click", () => {
+        inputForChangeHour.showPicker();
+      });
 
       const theTaskP = document.createElement("p");
       theTaskP.textContent = thisTask.taskName;
@@ -804,10 +911,16 @@ function showSingleList(id) {
       buttonDeleteTask.id = "buttonDeleteTask";
       buttonDeleteTask.innerHTML = "Delete";
 
+      const spanToSaveEdit = document.createElement("span");
+      spanToSaveEdit.id = "spanToSaveEdit";
+      spanToSaveEdit.display = "none";
+
       const buttonToSaveEdit = document.createElement("button");
       buttonToSaveEdit.innerHTML = "Save Changes";
       buttonToSaveEdit.id = "buttonToSaveEdit";
       buttonToSaveEdit.style.display = "none";
+
+      spanToSaveEdit.appendChild(buttonToSaveEdit);
 
       // EDIT TASK
 
@@ -839,7 +952,7 @@ function showSingleList(id) {
 
           buttonEditTask.style.display = "none";
           buttonDeleteTask.style.display = "none";
-
+          spanToSaveEdit.style.display = "inline-block";
           buttonToSaveEdit.style.display = "inline-block";
 
           buttonToSaveEdit.onclick = async () => {
@@ -863,6 +976,7 @@ function showSingleList(id) {
             buttonDeleteTask.style.display = "inline-block";
 
             buttonToSaveEdit.style.display = "none";
+            spanToSaveEdit.style.display = "none";
 
             editTaskClicked = false;
 
@@ -902,13 +1016,12 @@ function showSingleList(id) {
       spanForTask.appendChild(numberTaskP);
       spanForTask.appendChild(theTaskP);
 
+      divTask.appendChild(divTimeHourTask);
       divTask.appendChild(spanForTask);
       divTask.appendChild(spanForButton);
-      divTask.appendChild(buttonToSaveEdit);
+      divTask.appendChild(spanToSaveEdit);
 
       divAllTasks.appendChild(divTask);
-
-      //divListsAndTaks.appendChild(divAllTasks);
     });
 
     //REMOVE ALL TASKS ----------------------------------------------------------------------------
@@ -947,20 +1060,8 @@ function showSingleList(id) {
     };
   }
   if (index !== -1) {
-    // todo o código da lista
     console.log(lists[index]);
   } else {
     console.log("List not found");
   }
 }
-
-/*
-NEXT STEPS:
-
-* Add a "How to use" page.
-* Try to implement notifications based on task time and day
-* Improve the design ^-^
-* Add media queries 
-* Maybe add some new functionalities;
-
-*/

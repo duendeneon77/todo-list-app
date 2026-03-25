@@ -1,28 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Capriola&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-/*.color1 { #cccc66 };
-.color2 { #a6bf73 };
-.color3 { #80b380 };
-.color4 { #59a68c };
-.color5 { #339999 };*/
 
 body {
   font-family: "Capriola", sans-serif, Arial, Helvetica, sans-serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: rgb(149, 181, 198);
+  align-items: center;
 }
 header {
-  color: rgba(255, 255, 255, 0.973);
+  color: rgba(0, 0, 0, 0.602);
   display: flex;
-  height: 4rem;
-  background-color: #33769d;
+  height: auto;
   flex-direction: column;
   align-items: center;
   padding: 1rem;
@@ -35,11 +37,14 @@ nav {
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  background-color: #33769d;
   height: 3rem;
 }
-
-/* BUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONS BUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONS */
+#contentAbout,
+#guideCards {
+  flex: 0 0 auto;
+  height: auto;
+}
+/*-------------THE BUTTONS ------------------*/
 button {
   padding: 0.5rem;
   border: none;
@@ -60,11 +65,21 @@ nav button {
 
   text-shadow: 2px 2px 4px rgba(194, 32, 4, 0.6);
 }
+#button1:hover {
+  cursor: pointer;
+  background-color: rgb(251, 175, 103);
+  font-size: 1.1rem;
+}
 #button2 {
   background-color: rgb(215, 227, 111);
   border: 1px, solid, rgb(131, 204, 119);
 
   text-shadow: 2px 2px 4px rgba(48, 103, 3, 0.6);
+}
+#button2:hover {
+  cursor: pointer;
+  background-color: rgb(224, 238, 102);
+  font-size: 1.1rem;
 }
 #buttonSignOut {
   background-color: rgb(236, 122, 223);
@@ -72,14 +87,19 @@ nav button {
 
   text-shadow: 2px 2px 4px rgba(147, 22, 88, 0.6);
 }
+#buttonSignOut:hover {
+  cursor: pointer;
+  background-color: rgb(252, 122, 213);
+  font-size: 1.1rem;
+}
+
 #buttonLogin {
   background-color: rgb(107, 208, 164);
-  border: 1px, solid, rgba(77, 159, 113, 0.713);
-
+  border: 1px solid rgba(77, 159, 113, 0.713);
   text-shadow: 2px 2px 4px rgba(13, 87, 86, 0.6);
-
-  width: 100%;
+  width: 14rem;
   border-radius: 0.3rem;
+  cursor: pointer;
 }
 #buttonRegister,
 #buttonRegistrate {
@@ -87,8 +107,9 @@ nav button {
   border: 1px, solid, rgba(240, 94, 81, 0.687);
 
   text-shadow: 2px 2px 4px rgba(223, 29, 74, 0.533);
-  width: 100%;
+  width: 14rem;
   border-radius: 0.3rem;
+  cursor: pointer;
 }
 
 #buttonCreateList {
@@ -103,9 +124,10 @@ nav button {
 }
 
 #buttonCreateList:hover {
+  cursor: pointer;
   background-color: #f2ef39;
 
-  text-shadow: 2px 2px 4px rgba(177, 106, 7, 0.533);
+  text-shadow: 2px 2px 4px rgba(177, 106, 7, 0.781);
 }
 #buttonLogin:hover {
   background-color: rgb(151, 231, 111);
@@ -119,47 +141,155 @@ nav button {
 }
 
 #content {
+  flex: 0 0 auto;
+  width: 18rem;
+  margin: 0.2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#contentForm {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: #eefcfc;
   margin-bottom: 0.2rem;
   margin-top: 0.2rem;
   align-items: center;
   justify-content: flex-start;
-  width: 100%;
+  width: 18rem;
+  height: 30rem;
 }
-#content form {
+#wallpaper {
+  position: relative;
+  width: 18rem;
+  height: 25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg {
+  position: relative;
+  width: 16rem;
+  height: 22.5rem;
+}
+
+.img {
+  position: absolute;
+  width: 15rem;
+  height: 15rem;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/*-----------------wallpaperimages----------*/
+.img1 {
+  background-image: url("../ToDoListImgs/coocker.png");
+  top: -3rem;
+  left: -2rem;
+  z-index: 1;
+
+  width: 13rem;
+  height: 15rem;
+}
+
+.img2 {
+  background-image: url("../ToDoListImgs/littleGirl.png");
+  top: 2rem;
+  left: 3rem;
+
+  width: 7rem;
+  height: 10.5rem;
+  z-index: 4;
+}
+.img3 {
+  background-image: url("../ToDoListImgs/Guy.png");
+  top: -2rem;
+  left: 7.4rem;
+  z-index: 2;
+
+  width: 8rem;
+  height: 14rem;
+}
+
+.img4 {
+  background-image: url("../ToDoListImgs/oldLady.png");
+  top: -1rem;
+  left: 10.5rem;
+  z-index: 3;
+
+  width: 6rem;
+  height: 13rem;
+}
+
+#contentForm form {
   display: flex;
   flex-direction: column;
   justify-content: left;
   gap: 1rem;
-  padding: 3rem;
+  z-index: 5;
+  margin-top: 0rem;
+  width: 16rem;
 }
 
-#content form input {
+#formRegister {
+  padding-top: 2rem;
+}
+
+#backToLogin {
+  background-color: #0dd068d8;
+  color: white;
+  font-size: 0.8rem;
   padding: 0.5rem;
+  width: 10rem;
+  border-radius: 1rem;
+  text-decoration: none;
+  text-align: center;
+}
+
+#backToLogin:hover {
+  background-color: #98c717d8;
+  cursor: pointer;
+}
+#forForm {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  gap: 0.7rem;
+  padding: 1rem;
+  margin-top: 4rem;
+  border: 1px solid #19b1aa;
+  border-radius: 0.2rem;
   width: 16rem;
+  z-index: 10;
+}
+
+#formLogin {
+  padding-top: 2rem;
+  width: 16rem;
+}
+#contentForm form input {
+  padding: 0.5rem;
+  width: 14rem;
   border: 1px, solid, rgba(239, 126, 89, 0.546);
   font-family: "Capriola", sans-serif, Arial, Helvetica, sans-serif;
   color: #164357;
   text-align: center;
 }
-#content form input:focus {
+#contentForm form input:focus {
   outline: none;
   border: 2px, solid, #87e535;
 }
 
 #buttonContainer {
-  max-width: 16rem;
+  max-width: 14rem;
 }
-/* BUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONS BUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONSBUTTONS ------------------BUTTONS ---------------BUTTONS------BUTTONS */
 
 #advices p {
   display: flex;
-  align-items: center; /* Centraliza o texto verticalmente */
-  justify-content: center; /* Centraliza o texto horizontalmente */
-  width: 16rem;
+  align-items: center;
+  justify-content: center;
+  width: 14rem;
   height: 4rem;
   margin-top: 1rem;
   font-size: 0.7rem;
@@ -184,6 +314,7 @@ nav button {
   font-size: 0.7rem;
   font-weight: 100;
   text-align: center;
+  width: 14rem;
 }
 #appDiv {
   display: flex;
@@ -197,7 +328,7 @@ nav button {
   color: rgb(43, 166, 164);
   font-size: 0.7rem;
 }
-/* CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ---------------------- */
+/* CONTAINER--FOR--CREATION--OF--LIST---------- */
 
 #creatingDiv {
   display: flex;
@@ -267,14 +398,14 @@ nav button {
 .divCheckbox {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px; /* espaço entre os radios */
-  margin: 10px 0; /* espaço acima e abaixo */
+  gap: 15px;
+  margin: 10px 0;
   padding-left: 1rem;
 }
 .divCheckbox label {
   display: flex;
   align-items: center;
-  gap: 5px; /* espaço entre o botão e o texto */
+  gap: 5px;
 }
 .divError {
   display: flex;
@@ -285,12 +416,7 @@ nav button {
   text-align: center;
   height: 2rem;
 }
-/* CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ----------------------CONTAINER--FOR--CREATION--OF--LIST ---------------------- */
-
-/* CONTAINER FOR SINGLE LIST DIV -----------------------------*/
-/* CONTAINER FOR SINGLE LIST DIV -----------------------------*/
-/* CONTAINER FOR SINGLE LIST DIV -----------------------------*/
-/* CONTAINER FOR SINGLE LIST DIV -----------------------------*/
+/* CONTAINER--FOR--CREATION--OF--LIST------------- CONTAINER FOR SINGLE LIST DIV ------------*/
 
 #divToShowLists {
   display: flex;
@@ -302,31 +428,514 @@ nav button {
   padding-left: 10%;
   padding-right: 10%;
   margin-bottom: 4rem;
+  gap: 0.5rem;
 }
-.divToShowSingleList {
+#divToShowLists div {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 8rem;
+  width: 14rem;
+  height: 10rem;
   gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
 }
-.divToShowSingleList img {
-  width: 8rem;
-  height: 8rem;
+#divToShowLists div img {
+  width: 4rem;
+  height: 4rem;
 }
 
-.divToShowSingleList p {
+#divToShowLists div p {
+  text-align: center;
   overflow-wrap: break-word;
-  width: 8rem;
+  width: 12rem;
   height: 7.3rem;
+  background-color: rgba(255, 255, 255, 0.711);
+  border-radius: 0.3rem;
+  padding: 0.4rem;
 }
-/*------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------
+#guideCards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+.guideCard {
+  display: grid;
+  padding: 1rem;
+  font-size: 0.8rem;
+  border-radius: 1rem;
+  max-width: 30rem;
+  min-width: 95vw;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding-bottom: 2rem;
+  gap: 1rem;
+}
+.guideCard p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  word-wrap: break-word;
+  text-align: center;
+  background-color: #ffffffc7;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+.guideCardGuy {
+  background-color: #9455d75f;
+  color: #590c78ba;
+  grid-template-areas:
+    "h3 h3"
+    "img p1"
+    "p2 p2"
+    "p3 p3";
+  grid-template-columns: auto auto;
+  grid-template-rows:
+    2rem
+    17rem
+    6rem
+    auto;
+}
+.guideCardOldLady {
+  background-color: #cdfd5c62;
+  color: #13817c;
+  grid-template-areas:
+    "h3 h3"
+    "p1 img"
+    "p2 img"
+    "p2 img"
+    "p3 p3";
+  grid-template-columns: auto auto;
+  grid-template-rows:
+    2rem
+    9rem
+    5rem
+    auto
+    auto;
+}
+.guideCardCook {
+  background-color: #fa5d8f52;
+  color: #a00f42ce;
+  grid-template-areas:
+    "img h3"
+    "img p1"
+    "p1b p1b"
+    "p2 p2"
+    "p3 p3";
+  grid-template-columns: 9rem auto;
+  grid-template-rows:
+    2rem
+    15rem
+    4rem
+    4rem
+    auto;
+}
+.guideCardLittleGirl {
+  background-color: #38b5db50;
+  color: #13466bc0;
+  grid-template-areas:
+    "h3 img"
+    "p1 img"
+    "p2 p2"
+    "p3 p3";
+  grid-template-columns: auto auto;
+  grid-template-rows:
+    2rem
+    9rem
+    4rem
+    auto;
+}
+
+.guideCard h3 {
+  grid-area: h3;
+}
+.guideCard .p1 {
+  grid-area: p1;
+  word-wrap: break-word;
+}
+
+.guideCard .p1b {
+  grid-area: p1b;
+  word-wrap: break-word;
+}
+.guideCard .p2 {
+  grid-area: p2;
+  padding-top: 1rem;
+  word-wrap: break-word;
+}
+.guideCard .p3 {
+  grid-area: p3;
+  word-wrap: break-word;
+}
+
+#guy {
+  height: 15rem;
+}
+#oldLady {
+  height: 15rem;
+}
+#cook {
+  height: 16rem;
+  margin-left: -1rem;
+}
+#littleGirl {
+  height: 12rem;
+}
+#contentAbout {
+  width: 90%;
+}
+footer {
+  flex-shrink: 0;
+}
+#forAboutPage {
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+
+  background-color: #0e9bb03a;
+  margin-top: 3rem;
+  border-radius: 1rem;
+}
+#forAboutPage p {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 0.6rem;
+  color: #0e505aad;
+}
+.pForAboutPageRight {
+  text-align: end;
+}
+.divShowing,
+.divCreateTask,
+.divDeleteAllTasks,
+.divOrganizeTask {
+  margin: 0 auto;
+}
+
+/* LIST COLORS----------------------LISTCOLORS*/
+
+.LimeList {
+  border: 1px solid #b3fa4aa2;
+  background-color: #a5ff1f32;
+  color: #4da10c;
+}
+.LimeList:hover {
+  cursor: pointer;
+  background-color: #b7ff4ad0;
+}
+.divShowing.Lime {
+  background-color: #b3e91ea2;
+}
+.divShowing.Lime h2 {
+  color: #0e6f1ea2;
+}
+
+.divCreateTask.Lime {
+  background-color: #8fe319b9;
+}
+.divDeleteAllTasks.Lime {
+  background-color: #008477c1;
+}
+.divOrganizeTask.Lime {
+  background-color: #1ab36bbd;
+}
+.divTaskColor1.Lime {
+  background-color: #98d6067e;
+}
+.divTaskColor2.Lime {
+  background-color: #b4c2158c;
+}
+
+.AquaList {
+  border: 1px solid #32d2aaad;
+  background-color: #1fffd632;
+  color: #0c907c;
+}
+.AquaList:hover {
+  cursor: pointer;
+  background-color: #12c8c2c7;
+}
+.divShowing.Aqua {
+  background-color: #13b3a8a2;
+}
+.divShowing.Aqua h2 {
+  color: #0f4f58a2;
+}
+
+.divCreateTask.Aqua {
+  background-color: #14c092b9;
+}
+.divDeleteAllTasks.Aqua {
+  background-color: #006784c1;
+}
+.divOrganizeTask.Aqua {
+  background-color: #1ab3a1bd;
+}
+.divTaskColor1.Aqua {
+  background-color: #06d67c50;
+}
+.divTaskColor2.Aqua {
+  background-color: #158ec258;
+}
+.YellowList {
+  border: 1px solid #e2ea4ebb;
+  background-color: #ffdd551f;
+  color: #cfbf10;
+}
+.YellowList:hover {
+  cursor: pointer;
+  background-color: #fff537ae;
+}
+.divShowing.Yellow {
+  background-color: #d8d82283;
+}
+.divShowing.Yellow h2 {
+  color: #874c11a2;
+}
+
+.divCreateTask.Yellow {
+  background-color: #df960e80;
+}
+.divCreateTask.Yellow div {
+  color: #8a6234d7;
+}
+.divDeleteAllTasks.Yellow {
+  background-color: #b1d82293;
+}
+.divOrganizeTask.Yellow {
+  background-color: #d1ad1b7d;
+  color: #744f1abd;
+}
+
+.divTaskColor1.Yellow {
+  background-color: #d5f13852;
+}
+.divTaskColor2.Yellow {
+  background-color: #e7741542;
+}
+.PurpleList {
+  border: 1px solid #8616c784;
+  background-color: #f955ff1f;
+  color: #88129a;
+}
+.PurpleList:hover {
+  cursor: pointer;
+  background-color: #d049fdbc;
+}
+.divShowing.Purple {
+  background-color: #841cc4c1;
+}
+.divShowing.Purple h2 {
+  color: #ffffffd0;
+}
+
+.divCreateTask.Purple {
+  background-color: #ae0c83c9;
+}
+.divCreateTask.Purple div {
+  color: rgba(255, 255, 255, 0.803);
+}
+.divDeleteAllTasks.Purple {
+  background-color: #701782e4;
+}
+.divOrganizeTask.Purple {
+  background-color: #8a18afb8;
+  color: rgba(255, 255, 255, 0.756);
+}
+.divTaskColor1.Purple {
+  background-color: #8838f171;
+}
+.divTaskColor2.Purple {
+  background-color: #e715c456;
+}
+
+.CherryRedList {
+  border: 1px solid #ff166489;
+  background-color: #f400551f;
+  color: #be0345;
+}
+.CherryRedList:hover {
+  cursor: pointer;
+  background-color: #fd4982bd;
+}
+
+.divShowing.CherryRed {
+  background-color: #b3176ac1;
+}
+.divShowing.CherryRed h2 {
+  color: #ffffffc6;
+}
+
+.divCreateTask.CherryRed {
+  background-color: #cd185eba;
+}
+.divCreateTask.CherryRed div {
+  color: #ffffffda;
+}
+
+.divDeleteAllTasks.CherryRed {
+  background-color: #821739e4;
+}
+.divOrganizeTask.CherryRed {
+  background-color: #af185eb8;
+  color: rgba(255, 255, 255, 0.849);
+}
+.divTaskColor1.CherryRed {
+  background-color: #f138cc4a;
+}
+.divTaskColor2.CherryRed {
+  background-color: #e7157456;
+}
+.PinkList {
+  border: 1px solid #ff5a94a5;
+  background-color: #ff29ad29;
+  color: #c2158e;
+}
+.PinkList:hover {
+  cursor: pointer;
+  background-color: #fd49c7bc;
+}
+.divShowing.Pink {
+  background-color: #e26293e8;
+}
+.divShowing.Pink h2 {
+  color: #ffffffd4;
+}
+
+.divCreateTask.Pink {
+  background-color: #f042a5ba;
+}
+.divDeleteAllTasks.Pink {
+  background-color: #d1587ea3;
+}
+.divOrganizeTask.Pink {
+  background-color: #e052ba94;
+}
+.divTaskColor1.Pink {
+  background-color: #f138cc33;
+}
+.divTaskColor2.Pink {
+  background-color: #f163a35c;
+}
+
+.OrangeList {
+  border: 1px solid #ff7d3192;
+  background-color: #ff982929;
+  color: #d24209;
+}
+.OrangeList:hover {
+  cursor: pointer;
+  background-color: #fd9d49bc;
+}
+
+.divShowing.Orange {
+  background-color: #e26d62e8;
+}
+.divShowing.Orange h2 {
+  color: #ffffffd4;
+}
+
+.divCreateTask.Orange {
+  background-color: #f08242ba;
+}
+.divDeleteAllTasks.Orange {
+  background-color: #d1a158a3;
+}
+.divOrganizeTask.Orange {
+  background-color: #e1643e94;
+}
+.divTaskColor1.Orange {
+  background-color: #f1b93833;
+}
+.divTaskColor2.Orange {
+  background-color: #f195635c;
+}
+
+.BlueList {
+  border: 1px solid #58cdffb8;
+  background-color: #29bfff29;
+  color: #1560a7;
+}
+.BlueList:hover {
+  cursor: pointer;
+  background-color: #495bfdbc;
+}
+.divShowing.Blue {
+  background-color: #4c83c2e8;
+}
+.divShowing.Blue h2 {
+  color: #ffffffd4;
+}
+
+.divCreateTask.Blue {
+  background-color: #42f0edba;
+}
+.divDeleteAllTasks.Blue {
+  background-color: #1d4ab2a3;
+}
+.divOrganizeTask.Blue {
+  background-color: #3ea8e194;
+}
+.divTaskColor1.Blue {
+  background-color: #38c6f133;
+}
+.divTaskColor2.Blue {
+  background-color: #58c8d97d;
+}
+.DefaultColorList {
+  border: 1px solid #edcfa1;
+  background-color: #f9d6a629;
+  color: #3c4d58;
+}
+.DefaultColorList:hover {
+  cursor: pointer;
+  background-color: #fdc1497e;
+}
+
+.divShowing.Default {
+  background-color: #4c83c2e8;
+}
+.divShowing.Blue h2 {
+  color: #ffffffd4;
+}
+
+.divCreateTask.Blue {
+  background-color: #42f0edba;
+}
+.divDeleteAllTasks.Blue {
+  background-color: #1d4ab2a3;
+}
+.divOrganizeTask.Blue {
+  background-color: #3ea8e194;
+}
+.divTaskColor1.Blue {
+  background-color: #38c6f133;
+}
+.divTaskColor2.Blue {
+  background-color: #58c8d97d;
+}
+#divTaskHourTask {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 0.4rem;
+}
+#divTaskHourTask input,
+#divTaskHourTask p {
+  padding-right: 1rem;
+  color: #000000ab;
+}
+#divTaskHourTask input {
+  color: #000000ab;
+  margin-right: 10%;
+}
+/*--------
  DIV FOR SHOW TASKS
-------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------*/
+-----------*/
 
 #divListsAndTasks {
   display: flex;
@@ -342,7 +951,7 @@ nav button {
   flex-direction: column;
   padding-top: 2rem;
   width: 90vw;
-  background-color: #5008629e;
+  background-color: #e969699e;
   margin-top: 1rem;
   border-radius: 2rem 2rem 0 0;
   min-height: 150px;
@@ -350,7 +959,7 @@ nav button {
 }
 .divShowing h2 {
   text-align: center;
-  color: #f2f2f2d2;
+  color: #f2f2f2f2;
 
   display: block;
   width: 95%;
@@ -370,8 +979,16 @@ nav button {
 #editList {
   background-color: #55db96b5;
 }
+#editList:hover {
+  cursor: pointer;
+  background-color: #8bdb55c9;
+}
 #deleteList {
   background-color: rgba(221, 63, 126, 0.769);
+}
+#deleteList:hover {
+  cursor: pointer;
+  background-color: rgba(240, 41, 97, 0.772);
 }
 .divShowing span button {
   border-radius: 0.3rem;
@@ -384,10 +1001,20 @@ nav button {
   font-size: 0.8rem;
   background-color: #15c29db4;
 }
+#buttonSaveChangesList:hover {
+  cursor: pointer;
+  color: white;
+  background-color: #1bd18bb4;
+}
 #buttonCancelEditList {
   width: 5rem;
   font-size: 0.8rem;
   background-color: #e22c74b7;
+}
+#buttonCancelEditList:hover {
+  cursor: pointer;
+  color: white;
+  background-color: #e22c75eb;
 }
 .divCreateTask {
   display: flex;
@@ -397,13 +1024,16 @@ nav button {
   width: 90vw;
   align-items: center;
 
-  background-color: #16c7bb92;
+  background-color: #b3da52a6;
 }
 .divCreateTask input {
   width: 100%;
   border: none;
   font-size: 1rem;
   color: #0f8da0;
+}
+#listInput {
+  padding: 0.5rem;
   padding-left: 1rem;
 }
 .divCreateTask input:focus {
@@ -415,6 +1045,10 @@ nav button {
 
 #buttonCreateTask {
   background-color: #339d86;
+}
+#buttonCreateTask:hover {
+  cursor: pointer;
+  background-color: #31b0a3;
 }
 
 .divCreateTask input::placeholder {
@@ -431,23 +1065,40 @@ nav button {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
+}
+#divForTime span {
+  height: 3rem;
+}
+#spanForTime {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  width: 6rem;
+}
+#spanForDay {
+  padding-top: 0.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 }
 
 #inputForTime {
-  width: 8rem;
+  width: 6rem;
+  padding-left: 0.8rem;
 }
 #inputForDay {
-  width: 8rem;
+  width: 7rem;
 }
 
-#divDeleteAllTasks {
+.divDeleteAllTasks {
   display: flex;
-  background-color: #863464;
+  background-color: #ffcc7fbf;
   width: 90vw;
   align-items: center;
   justify-content: center;
 }
-#divDeleteAllTasks button {
+.divDeleteAllTasks button {
   background-color: rgba(214, 22, 105, 0.509);
   color: white;
   border-radius: 0.3rem;
@@ -455,38 +1106,104 @@ nav button {
   margin: 0.5rem;
 }
 
-#divDeleteAllTasks button:hover {
-  background-color: #e53567a9;
+.divDeleteAllTasks button:hover {
+  cursor: pointer;
+  background-color: #f02c64c2;
 }
+.divOrganizeTask {
+  height: 8.5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+
+  background-color: #ff72a3a2;
+}
+.divOrganizeTask button {
+  width: 6rem;
+}
+#divOrganizeTaskSpan {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 0.5rem;
+}
+#divOrganizeTaskSpan2 {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+#buttonOrganizeByCreation {
+  background-color: #0f8da0a6;
+  color: rgba(255, 255, 255, 0.851);
+}
+#buttonOrganizeByCreation:hover {
+  background-color: #0fa4bae4;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+#buttonOrganizeByDate {
+  background-color: #0fa07ca6;
+  color: rgba(255, 255, 255, 0.851);
+}
+#buttonOrganizeByDate:hover {
+  background-color: #13c89bda;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+#buttonOrganizeByHour {
+  background-color: #0f72a092;
+  color: rgba(255, 255, 255, 0.851);
+}
+
+#buttonOrganizeByHour:hover {
+  background-color: #169bd9b2;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+#buttonOrganizeByMonth {
+  background-color: #0fa096a6;
+  color: rgba(255, 255, 255, 0.851);
+}
+#buttonOrganizeByMonth:hover {
+  background-color: #15c7bbca;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
 .divAllTasks {
+  margin-top: 0.5rem;
   padding-bottom: 2rem;
   min-height: 5rem;
 
   width: 90vw;
 }
+.divAllTasks input {
+  padding-right: 10%;
+}
 .divTask {
   display: flex;
   flex-direction: column;
-  /* padding horizontal em vez de top/bottom */
-
   width: 90vw;
-  margin: 0 auto; /* centraliza na tela */
+  margin: 0 auto;
   flex-wrap: wrap;
   padding-top: 1rem;
   padding-bottom: 1rem;
   min-height: 3rem;
+  color: #000000ab;
 }
-#divTaskColor1 {
-  background-color: #ae5ea789;
+.divTaskColor1 {
+  background-color: #d8d0734b;
 }
-#divTaskColor2 {
-  background-color: #6131bc85;
+.divTaskColor2 {
+  background-color: #e283914d;
 }
-.pTask[contenteditable="true"] {
-  outline: none;
-  border: none;
-  background: inherit;
-  background-color: #d8f2c953;
+
+[contenteditable="true"] {
+  outline: rgba(255, 255, 255, 0.537) !important;
+
+  border: 2px solid rgba(255, 255, 255, 0.614);
 }
 
 .divTask span {
@@ -539,17 +1256,35 @@ nav button {
 #buttonEditTask {
   background-color: #c2e53589;
 }
+#buttonEditTask:hover {
+  cursor: pointer;
+  background-color: #c3e119a8;
+  color: white;
+}
 #buttonDeleteTask {
   background-color: #e5443583;
 }
+#buttonDeleteTask:hover {
+  cursor: pointer;
+  background-color: #e331219a;
+  color: white;
+}
 
+#spanToSaveEdit {
+  text-align: center;
+}
 #buttonToSaveEdit {
   width: 9rem;
   border-radius: 0.3rem;
   background-color: #3dc9dc85;
   padding: 0.2rem;
 }
-/* MODAL--------------------------------------------------------------------------------- */
+#buttonToSaveEdit:hover {
+  cursor: pointer;
+  background-color: #43b8c7ed;
+  color: #ffffff;
+}
+/* MODAL--------- */
 #modalDeleteList {
   position: fixed;
   top: 0;
@@ -594,13 +1329,233 @@ nav button {
   color: white;
 }
 
+#titleImg {
+  width: 16rem;
+}
+#titleRegisterImg {
+  width: 16rem;
+}
+
+#buttonBackToLogin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 footer {
+  margin-top: 2rem;
   display: flex;
   height: 3rem;
-  background-color: #438ab3;
-  color: rgba(255, 255, 255, 0.656);
+  color: rgba(69, 69, 69, 0.656);
   flex-direction: row;
   justify-content: flex-end;
   padding: 1rem;
   font-size: 0.7rem;
+}
+
+/*MEDIA QUERIES*/
+
+@media (min-width: 768px) {
+  #contentForm {
+    width: 25rem;
+  }
+  #wallpaper {
+    height: 24rem;
+  }
+  .bg {
+    width: 25rem;
+  }
+  #contentForm form {
+    margin-top: -2rem;
+    width: 25rem;
+  }
+
+  #forForm {
+    width: 25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6rem;
+  }
+
+  #formLogin {
+    width: 25rem;
+  }
+
+  #contentForm form input {
+    padding: 0.5rem;
+    width: 23rem;
+    border: 1px, solid, rgba(239, 126, 89, 0.546);
+    font-family: "Capriola", sans-serif, Arial, Helvetica, sans-serif;
+    color: #164357;
+    text-align: center;
+  }
+  .img1 {
+    top: -3rem;
+    left: 2rem;
+    width: 13rem;
+    height: 15rem;
+  }
+
+  .img2 {
+    top: 2rem;
+    left: 7.5rem;
+  }
+  .img3 {
+    top: -2rem;
+    left: 12.5rem;
+  }
+
+  .img4 {
+    top: -1rem;
+    left: 16rem;
+  }
+
+  #contentAbout {
+    width: 50%;
+  }
+
+  .guideCard {
+    min-width: 50vw;
+    max-width: 50vw;
+  }
+  .guideCardGuy {
+    background-color: #9455d75f;
+    color: #590c78ba;
+    grid-template-areas:
+      "h3 h3"
+      "img p1"
+      "img p2"
+      "img p3";
+    grid-template-columns: auto auto;
+    grid-template-rows:
+      2rem
+      8rem
+      6rem
+      auto;
+  }
+  .guideCardOldLady {
+    background-color: #cdfd5c62;
+    color: #13817c;
+    grid-template-areas:
+      "h3 h3"
+      "p1 img"
+      "p2 img"
+      "p2 img"
+      "p3 img";
+    grid-template-columns: auto 7rem;
+    grid-template-rows:
+      2rem
+      4rem
+      3rem
+      auto
+      auto;
+  }
+  .guideCardCook {
+    background-color: #fa5d8f52;
+    color: #a00f42ce;
+    grid-template-areas:
+      "img h3"
+      "img p1"
+      "img p1b"
+      "img p2"
+      "p3 p3";
+    grid-template-columns: 9rem auto;
+    grid-template-rows:
+      2rem
+      5rem
+      5rem
+      6rem
+      auto;
+  }
+  .guideCardLittleGirl {
+    background-color: #38b5db50;
+    color: #13466bc0;
+    grid-template-areas:
+      "h3 img"
+      "p1 img"
+      "p2 img"
+      "p3 p3";
+    grid-template-columns: auto auto;
+    grid-template-rows:
+      2rem
+      5rem
+      5rem
+      auto;
+  }
+  #divToShowLists {
+    max-width: 90%;
+  }
+
+  #divListsAndTasks {
+    width: 70vw;
+  }
+  .divShowing {
+    width: 70vw;
+  }
+  .divCreateTask {
+    width: 70vw;
+  }
+  .divDeleteAllTasks {
+    width: 70vw;
+  }
+  .divOrganizeTask {
+    width: 70vw;
+  }
+  .divTask {
+    width: 70vw;
+  }
+
+  footer {
+    font-size: 0.8rem;
+  }
+}
+@media (min-width: 768px) {
+  #content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  #divListsAndTasks {
+    width: 55vw;
+  }
+  .divShowing {
+    width: 55vw;
+  }
+  .divCreateTask {
+    width: 55vw;
+  }
+  .divDeleteAllTasks {
+    width: 55vw;
+  }
+  .divOrganizeTask {
+    width: 55vw;
+  }
+  .divTask {
+    width: 55vw;
+  }
+}
+
+@media (min-width: 1440px) and (min-height: 1024px) {
+  #contentForm {
+    margin-top: 10vh;
+  }
+}
+@media (min-height: 700px) {
+  #contentForm {
+    margin-top: 5vh;
+  }
+}
+@media (min-height: 900px) {
+  #contentForm {
+    margin-top: 10vh;
+  }
+}
+
+@media (min-height: 1000px) {
+  body.about-page {
+    justify-content: flex-start;
+  }
 }
