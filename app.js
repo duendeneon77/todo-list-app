@@ -462,9 +462,11 @@ modalDeleteList.style.display = "none";
 function formatDate(dateString) {
   if (!dateString) return "";
 
-  const date = new Date(dateString);
+  const [year, month, day] = dateString.split("-");
 
-  const day = String(date.getDate()).padStart(2, "0");
+  const date = new Date(year, month - 1, day); // 👈 AQUI MUDA TUDO
+
+  const dayFormatted = String(date.getDate()).padStart(2, "0");
 
   const months = [
     "January",
@@ -481,10 +483,10 @@ function formatDate(dateString) {
     "December",
   ];
 
-  const month = months[date.getMonth()];
-  const year = date.getFullYear();
+  const monthName = months[date.getMonth()];
+  const yearFormatted = date.getFullYear();
 
-  return ` ${day} - ${month} - ${year}`;
+  return ` ${dayFormatted} - ${monthName} - ${yearFormatted}`;
 }
 
 function showSingleList(id) {
@@ -614,8 +616,11 @@ function showSingleList(id) {
       }
 
       lists[index].tasks = [...tasks].sort((a, b) => {
-        const dateA = new Date(a.day);
-        const dateB = new Date(b.day);
+        const [yA, mA, dA] = a.day.split("-");
+        const [yB, mB, dB] = b.day.split("-");
+
+        const dateA = new Date(yA, mA - 1, dA);
+        const dateB = new Date(yB, mB - 1, dB);
 
         const monthA = dateA.getMonth();
         const monthB = dateB.getMonth();
@@ -649,9 +654,12 @@ function showSingleList(id) {
         };
         return;
       }
-      lists[index].tasks = [...tasks].sort(
-        (a, b) => new Date(a.day) - new Date(b.day),
-      );
+      lists[index].tasks = [...tasks].sort((a, b) => {
+        const [yA, mA, dA] = a.day.split("-");
+        const [yB, mB, dB] = b.day.split("-");
+
+        return new Date(yA, mA - 1, dA) - new Date(yB, mB - 1, dB);
+      });
       showSingleList(lists[index].listId);
     };
 
@@ -675,10 +683,18 @@ function showSingleList(id) {
         };
         return;
       }
-      lists[index].tasks = [...tasks].sort(
-        (a, b) =>
-          new Date(`${a.day}T${a.time}`) - new Date(`${b.day}T${b.time}`),
-      );
+      lists[index].tasks = [...tasks].sort((a, b) => {
+        const [yA, mA, dA] = a.day.split("-");
+        const [yB, mB, dB] = b.day.split("-");
+
+        const [hA, minA] = a.time.split(":");
+        const [hB, minB] = b.time.split(":");
+
+        const dateA = new Date(yA, mA - 1, dA, hA, minA);
+        const dateB = new Date(yB, mB - 1, dB, hB, minB);
+
+        return dateA - dateB;
+      });
       showSingleList(lists[index].listId);
     };
 
